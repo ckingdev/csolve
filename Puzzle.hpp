@@ -29,6 +29,8 @@ public:
 	Puzzle apply(Move m) const;
 	bool solved() const;
 	void print() const;
+	std::vector<Piece> get_edges() const;
+	std::vector<Piece> get_corners() const;
 private:
 	std::vector<Piece> edges;
 	std::vector<Piece> corners;
