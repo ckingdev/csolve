@@ -171,3 +171,12 @@ bool operator ==(const Puzzle a, const Puzzle b)
 	}
 	return true;
 }
+
+std::vector<Puzzle> Puzzle::apply_moves(std::vector<Move> move_list)
+{
+	std::vector<Puzzle> applied;
+	for (std::size_t i = 0; i < move_list.size(); i++) {
+		applied.push_back(apply(move_list[i]));
+	}
+	return applied;
+}

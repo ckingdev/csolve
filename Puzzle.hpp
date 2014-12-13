@@ -29,6 +29,7 @@ public:
 	void add_edge(Piece p);
 	void add_corner(Piece p);
 	Puzzle apply(Move m) const;
+	std::vector<Puzzle> apply_moves(std::vector<Move> move_list);
 	bool solved() const;
 	void print() const;
 	std::vector<Piece> get_edges() const;
