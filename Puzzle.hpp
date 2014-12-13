@@ -17,6 +17,10 @@ struct Move {
 	std::unordered_map<int, Location> corners;
 };
 
+void init_moves();
+
+// Move moves[18];
+
 class Puzzle 
 {
 public:
