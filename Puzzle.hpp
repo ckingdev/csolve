@@ -14,6 +14,8 @@ struct Piece {
 	Location loc;
 };
 
+bool operator != (const Piece a, const Piece b);
+
 struct Move {
 	std::unordered_map<int, Location> edges;
 	std::unordered_map<int, Location> corners;
@@ -31,10 +33,13 @@ public:
 	void print() const;
 	std::vector<Piece> get_edges() const;
 	std::vector<Piece> get_corners() const;
+
 private:
 	std::vector<Piece> edges;
 	std::vector<Piece> corners;
 };
+
+bool operator ==(const Puzzle a, const Puzzle b);
 
 Puzzle get_first_block();
 

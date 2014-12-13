@@ -145,3 +145,29 @@ Puzzle get_first_block()
 	p.add_edge(e10);
 	return p;
 }
+
+bool operator != (const Piece a, const Piece b)
+{
+	return !(a.id == b.id && a.loc.o == b.loc.o && a.loc.p == b.loc.p);
+}
+
+bool operator ==(const Puzzle a, const Puzzle b)
+{
+	auto a_edges = a.get_edges();
+	auto a_corners = a.get_corners();
+	auto b_edges = a.get_edges();
+	auto b_corners = a.get_corners();
+	if (a_edges.size() != b_edges.size() || a_corners.size() != b_corners.size())
+		return false;
+
+	for (unsigned int i = 0; i < a_edges.size(); i++) {
+		if(a_edges[i] != b_edges[i])
+			return false;
+	}
+
+	for (unsigned int i = 0; i < a_corners.size(); i++) {
+		if(a_corners[i] != b_corners[i])
+			return false;
+	}
+	return true;
+}
