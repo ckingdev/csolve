@@ -19,12 +19,9 @@ struct Move {
 
 void init_moves();
 
-// Move moves[18];
-
 class Puzzle 
 {
 public:
-	// Puzzle();
 	void add_edge(Piece p);
 	void add_corner(Piece p);
 	Puzzle apply(Move m) const;
