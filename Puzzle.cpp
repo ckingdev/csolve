@@ -118,3 +118,21 @@ void Puzzle::print() const
 	}
 	std::cout << "\n";
 }
+
+/*****************************************************************************/
+Puzzle get_first_block()
+/*****************************************************************************/
+{
+	Puzzle p;
+	Piece c5 = {5, {5, 0}};
+	Piece c6 = {6, {6, 0}};
+	Piece e6 = {6, {6, 0}};
+	Piece e9 = {9, {9, 0}};
+	Piece e10 = {10, {10, 0}};
+	p.add_corner(c5);
+	p.add_corner(c6);
+	p.add_edge(e6);
+	p.add_edge(e9);
+	p.add_edge(e10);
+	return p;
+}

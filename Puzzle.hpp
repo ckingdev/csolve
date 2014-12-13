@@ -32,4 +32,5 @@ private:
 	std::vector<Piece> corners;
 };
 
+Puzzle get_first_block();
 
