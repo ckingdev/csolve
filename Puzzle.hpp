@@ -1,5 +1,7 @@
+#ifndef PUZZLE_HPP
+#define PUZZLE_HPP
+
 #include <vector>
-#include <utility>
 #include <unordered_map>
 
 struct Location {
@@ -34,3 +36,4 @@ private:
 
 Puzzle get_first_block();
 
+#endif
