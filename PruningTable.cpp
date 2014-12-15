@@ -30,25 +30,31 @@ class CompareNode {
 		}
 };
 
+typedef std::priority_queue<Node, std::vector<Node>, CompareNode> PQueue;
+
+// void PQueue::decrease_priority(Node target, int new_val)
+// {
+// 	return;
+// }
+
+void process_neighbor(Puzzle nbr, PQueue queue, PruningTable pt)
+{
+	if (!pt.count(nbr)) { // unvisited
+
+	}
+}
+
 PruningTable gen_pruning_table(Puzzle start, int max_depth, std::vector<Move> move_set)
 {
 	PruningTable pt;
 	std::priority_queue<Node, std::vector<Node>, CompareNode> queue;
 	queue.push(Node{start, 0});
 	while (queue.size() > 0) {
-		Node current = queue.top();
+		Node current = queue.top(); // Can assume that any node in the queue is not explored
 		queue.pop();
-		if(pt.count(current.puz))
-			continue;
-		pt[current.puz] = current.dist;
-		auto neighbors = current.puz.apply_moves(move_set);
-		for (unsigned int i = 0; i < neighbors.size(); i++) {
-			auto old_entry = pt.find(neighbors[i]); // TODO: Change this to count
-			if (old_entry != pt.end()) { 
-				if (pt[neighbors[i]] > (current.dist + 1))
-					pt[neighbors[i]] = current.dist + 1;
-			}
-		}
+
+		
+		
 	}
 	return pt;
 }

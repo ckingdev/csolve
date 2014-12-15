@@ -26,8 +26,10 @@ void init_moves();
 class Puzzle 
 {
 public:
-	void add_edge(Piece p);
-	void add_corner(Piece p);
+/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+	void add_edge(Piece p); // These functions MUST sort on ID to ensure
+	void add_corner(Piece p); // that == and != work correctly
+/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 	Puzzle apply(Move m) const;
 	std::vector<Puzzle> apply_moves(std::vector<Move> move_list);
 	bool solved() const;
