@@ -30,20 +30,20 @@ public:
 	void add_edge(Piece p); // These functions MUST sort on ID to ensure
 	void add_corner(Piece p); // that == and != work correctly
 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
-	Puzzle apply(Move m) const;
-	std::vector<Puzzle> apply_moves(std::vector<Move> move_list);
+	Puzzle apply(const Move &m) const;
+	std::vector<Puzzle> apply_moves(const std::vector<Move> &move_list) const;
 	bool solved() const;
 	void print() const;
-	std::vector<Piece> get_edges() const;
-	std::vector<Piece> get_corners() const;
+	const std::vector<Piece> &get_edges() const;
+	const std::vector<Piece> &get_corners() const;
 
 private:
 	std::vector<Piece> edges;
 	std::vector<Piece> corners;
 };
 
-bool operator ==(const Puzzle a, const Puzzle b);
+bool operator ==(const Puzzle &a, const Puzzle &b); // Needed for unordered_map
 
-Puzzle get_first_block();
+Puzzle get_first_block(); // returns 
 
 #endif

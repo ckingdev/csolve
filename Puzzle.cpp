@@ -53,7 +53,7 @@ void Puzzle::add_corner(Piece p)
 
 
 /*****************************************************************************/
-Puzzle Puzzle::apply(Move m) const
+Puzzle Puzzle::apply(const Move &m) const
 /*****************************************************************************/
 {	
 	Puzzle new_puz;
@@ -61,26 +61,27 @@ Puzzle Puzzle::apply(Move m) const
 	Location l = {0, 0}; // these are overwritten each loop. Temp variables.
 	Piece p = {0, {0, 0}};
 
-	for (uint i = 0; i < corners.size(); i++) {
-		if (m.corners.count(corners[i].loc.p)) {		
-			l = m.corners[corners[i].loc.p];
-			l.o = (l.o + corners[i].loc.o) % 3;
-			p.id = corners[i].id;
+	for (auto & corner : corners) {
+
+		if (m.corners.count(corner.loc.p)) {		
+			l = m.corners.at(corner.loc.p);
+			l.o = (l.o + corner.loc.o) % 3;
+			p.id = corner.id;
 			p.loc = l;
 			new_puz.add_corner(p);
 		} else {
-			new_puz.add_corner(corners[i]);
+			new_puz.add_corner(corner);
 		}
 	}
-	for (uint i = 0; i < edges.size(); i++) {
-		if (m.edges.count(edges[i].loc.p)) {
-			l = m.edges[edges[i].loc.p];
-			l.o = (l.o + edges[i].loc.o) % 2;
-			p.id = edges[i].id;
+	for (auto & edge : edges) {
+		if (m.edges.count(edge.loc.p)) {
+			l = m.edges.at(edge.loc.p);
+			l.o = (l.o + edge.loc.o) % 2;
+			p.id = edge.id;
 			p.loc = l;
 			new_puz.add_edge(p);
 		} else {
-			new_puz.add_edge(edges[i]);
+			new_puz.add_edge(edge);
 		}
 	}
 	return new_puz;
@@ -118,12 +119,12 @@ void Puzzle::print() const
 	std::cout << "\n";
 }
 
-std::vector<Piece> Puzzle::get_edges() const
+const std::vector<Piece> &Puzzle::get_edges() const
 {
 	return edges;
 }
 
-std::vector<Piece> Puzzle::get_corners() const
+const std::vector<Piece> &Puzzle::get_corners() const
 {
 	return corners;
 }
@@ -172,7 +173,7 @@ bool operator ==(const Puzzle a, const Puzzle b)
 	return true;
 }
 
-std::vector<Puzzle> Puzzle::apply_moves(std::vector<Move> move_list)
+std::vector<Puzzle> Puzzle::apply_moves(const std::vector<Move> &move_list) const
 {
 	std::vector<Puzzle> applied;
 	for (std::size_t i = 0; i < move_list.size(); i++) {
