@@ -92,7 +92,7 @@ Puzzle Puzzle::apply(const Move &m) const
 bool Puzzle::solved() const 
 /*****************************************************************************/
 {
-	for (uint i = 0; i < corners.size(); i++) {
+	for (uint i = 0; i < corners.size(); i++) { // change these to auto &i : whatever
 		if (corners[i].id != corners[i].loc.p || corners[i].loc.o != 0)
 			return false;
 	}
@@ -108,7 +108,7 @@ void Puzzle::print() const
 /*****************************************************************************/
 {
 	std::cout << "Corners:\n";
-	for (uint i = 0; i < corners.size(); i++) {
+	for (uint i = 0; i < corners.size(); i++) { // iterator again
 		printf("%i | %i %i\n", corners[i].id, corners[i].loc.p, corners[i].loc.o);
 	}
 
@@ -152,21 +152,23 @@ bool operator != (const Piece a, const Piece b)
 	return !(a.id == b.id && a.loc.o == b.loc.o && a.loc.p == b.loc.p);
 }
 
-bool operator ==(const Puzzle a, const Puzzle b)
+bool operator ==(const Puzzle &a, const Puzzle &b)
 {
-	auto a_edges = a.get_edges();
-	auto a_corners = a.get_corners();
-	auto b_edges = a.get_edges();
-	auto b_corners = a.get_corners();
+	auto &a_edges = a.get_edges();
+	auto &a_corners = a.get_corners();
+	auto &b_edges = a.get_edges();
+	auto &b_corners = a.get_corners();
 	if (a_edges.size() != b_edges.size() || a_corners.size() != b_corners.size())
 		return false;
 
-	for (unsigned int i = 0; i < a_edges.size(); i++) {
+	auto len = a_edges.size();
+	for (unsigned int i = 0; i < len; i++) {
 		if(a_edges[i] != b_edges[i])
 			return false;
 	}
 
-	for (unsigned int i = 0; i < a_corners.size(); i++) {
+	len = a_corners.size();
+	for (unsigned int i = 0; i < len; i++) {
 		if(a_corners[i] != b_corners[i])
 			return false;
 	}
@@ -176,8 +178,8 @@ bool operator ==(const Puzzle a, const Puzzle b)
 std::vector<Puzzle> Puzzle::apply_moves(const std::vector<Move> &move_list) const
 {
 	std::vector<Puzzle> applied;
-	for (std::size_t i = 0; i < move_list.size(); i++) {
-		applied.push_back(apply(move_list[i]));
+	for (std::size_t i = 0; i < move_list.size(); i++) { // iterator
+		applied.emplace_back(apply(move_list[i]));
 	}
 	return applied;
 }

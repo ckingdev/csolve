@@ -18,43 +18,24 @@ std::size_t puzzle_hasher::operator()(Puzzle const &p) const
 	return seed;
 }
 
-struct Node {
-	Puzzle puz;
-	int dist;
-};
-
-class CompareNode {
-	public:
-		bool operator() (Node a, Node b) {
-			return a.dist > b.dist;
-		}
-};
-
-typedef std::priority_queue<Node, std::vector<Node>, CompareNode> PQueue;
-
-// void PQueue::decrease_priority(Node target, int new_val)
-// {
-// 	return;
-// }
-
-void process_neighbor(Puzzle nbr, PQueue queue, PruningTable pt)
+void DLS(PruningTable &pt, const Puzzle &puz, int depth, int max_depth, const std::vector<Move> &move_set)
 {
-	if (!pt.count(nbr)) { // unvisited
-
+	if (depth > 0) {
+		auto new_puzs = puz.apply_moves(move_set);
+		for (auto &i : new_puzs)
+			DLS(pt, i, depth - 1, max_depth, move_set);
+	} else {
+		auto found = pt.find(puz);
+		if (found == pt.end())
+			pt[puz] = max_depth;
+		return;
 	}
 }
 
-PruningTable gen_pruning_table(Puzzle start, int max_depth, std::vector<Move> move_set)
+PruningTable gen_pruning_table(const Puzzle &puz, int max_depth, const std::vector<Move> &move_set)
 {
 	PruningTable pt;
-	std::priority_queue<Node, std::vector<Node>, CompareNode> queue;
-	queue.push(Node{start, 0});
-	while (queue.size() > 0) {
-		Node current = queue.top(); // Can assume that any node in the queue is not explored
-		queue.pop();
-
-		
-		
-	}
+	for (int d = 1; d <= max_depth; d++)
+		DLS(pt, puz, d, d, move_set);
 	return pt;
 }
