@@ -1,6 +1,5 @@
 #include "PruningTable.hpp"
 #include "Puzzle.hpp"
-#include <queue>
 
 std::size_t puzzle_hasher::operator()(Puzzle const &p) const
 {
