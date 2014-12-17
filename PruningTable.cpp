@@ -5,8 +5,8 @@
 std::size_t puzzle_hasher::operator()(Puzzle const &p) const
 {
 	std::size_t seed = 0;
-	auto edges = p.get_edges();
-	auto corners = p.get_corners();
+	const auto &edges = p.get_edges();
+	const auto &corners = p.get_corners();
 	for(unsigned int i = 0; i < edges.size(); i++) {
 		seed ^= edges[i].loc.p + 0x9e3779b9 + (seed << 6) + (seed >> 2);
 		seed ^= edges[i].loc.o + 0x9e3779b9 + (seed << 6) + (seed >> 2);

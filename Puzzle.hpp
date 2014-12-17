@@ -27,6 +27,7 @@ std::vector<Move> init_moves();
 class Puzzle 
 {
 public:
+	Puzzle(void) { edges.reserve(3); corners.reserve(2); }
 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 	void add_edge(Piece p); // These functions MUST sort on ID to ensure
 	void add_corner(Piece p); // that == and != work correctly
