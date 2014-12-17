@@ -21,6 +21,6 @@ public:
 
 typedef std::unordered_map<Puzzle, int, puzzle_hasher> PruningTable;
 
-PruningTable gen_pruning_table(Puzzle start, int max_depth);
+PruningTable gen_pruning_table(const Puzzle &puz, int max_depth, const std::vector<Move> &move_set);
 
 #endif

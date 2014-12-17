@@ -32,6 +32,12 @@ void DLS(PruningTable &pt, const Puzzle &puz, int depth, int max_depth, const st
 	}
 }
 
+/* 
+gen_pruning_table generates a position->(moves from puz) mapping.
+
+Iterative deepening depth first search is used in order to keep memory usage
+low.
+*/
 PruningTable gen_pruning_table(const Puzzle &puz, int max_depth, const std::vector<Move> &move_set)
 {
 	PruningTable pt;

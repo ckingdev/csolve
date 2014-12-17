@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 #include "Puzzle.hpp"
 
 // R U F L D B
@@ -23,17 +24,20 @@ Location base_move_c_perms[6][4] = {{{3, 1}, {7, 2}, {4, 1}, {0, 2}},
 				    {{4, 0}, {7, 0}, {6, 0}, {5, 0}},
 				    {{2, 1}, {6, 2}, {7, 1}, {3, 2}}};
 
-Move base_moves[6];
 
-void init_moves() 
+
+std::vector<Move> init_moves() 
 {
+	std::vector<Move> base_moves;
 	for (int i = 0; i < 6; i++) {
+		Move tmp;
 		for (int j = 0; j < 4; j++) {
-			base_moves[i].corners[base_move_c_ids[i][j]] = base_move_c_perms[i][j];
-			base_moves[i].edges[base_move_e_ids[i][j]] = base_move_e_perms[i][j];
+			tmp.corners[base_move_c_ids[i][j]] = base_move_c_perms[i][j];
+			tmp.edges[base_move_e_ids[i][j]] = base_move_e_perms[i][j];
 		}
+		base_moves.push_back(tmp);
 	}
-	return;
+	return base_moves;
 }
 
 /*****************************************************************************/
