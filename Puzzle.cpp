@@ -202,8 +202,8 @@ bool operator ==(const Puzzle &a, const Puzzle &b)
 {
 	auto &a_edges = a.get_edges();
 	auto &a_corners = a.get_corners();
-	auto &b_edges = a.get_edges();
-	auto &b_corners = a.get_corners();
+	auto &b_edges = b.get_edges();
+	auto &b_corners = b.get_corners();
 	if (a_edges.size() != b_edges.size() || a_corners.size() != b_corners.size())
 		return false;
 
