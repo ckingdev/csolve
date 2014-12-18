@@ -25,36 +25,36 @@ Location base_move_c_perms[6][4] = {{{3, 1}, {7, 2}, {4, 1}, {0, 2}},
 				    {{2, 1}, {6, 2}, {7, 1}, {3, 2}}};
 
 
-Move compose(Move &a, Move &b)
+Move compose(const Move &a, const Move &b)
 {
 	Move ab;
 	for (int i = 0; i < 12; i++) {
 		if (a.edges.count(i)) {
-			Location tmp = a.edges[i];
+			Location tmp = a.edges.at(i);
 			if (b.edges.count(tmp.p)) {
-				tmp = b.edges[tmp.p];
-				tmp.o = (tmp.o + a.edges[i].o) % 2;
+				tmp = b.edges.at(tmp.p);
+				tmp.o = (tmp.o + a.edges.at(i).o) % 2;
 				ab.edges[i] = tmp;
 			} else {
 				ab.edges[i] = tmp;
 			}
 		} else if (b.edges.count(i)) {
-			ab.edges[i] = b.edges[i];
+			ab.edges[i] = b.edges.at(i);
 		}
 	}
 
 	for (int i = 0; i < 8; i++) {
 		if (a.corners.count(i)) {
-			Location tmp = a.corners[i];
+			Location tmp = a.corners.at(i);
 			if (b.corners.count(tmp.p)) {
-				tmp = b.corners[tmp.p];
-				tmp.o = (tmp.o + a.corners[i].o) % 3;
+				tmp = b.corners.at(tmp.p);
+				tmp.o = (tmp.o + a.corners.at(i).o) % 3;
 				ab.corners[i] = tmp;
 			} else {
 				ab.corners[i] = tmp;
 			}
 		} else if (b.corners.count(i)) {
-			ab.corners[i] = b.corners[i];
+			ab.corners[i] = b.corners.at(i);
 		}
 	}	
 	return ab;
