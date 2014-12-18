@@ -4,7 +4,7 @@
 
 TEST(MovesTest, FourMovesIsIdentity)
 {
-	Puzzle p = get_full();
+	auto p = get_full();
 	std::vector<Move> moves = init_three_moves();
 	for (int i = 0; i < 6; i++) {
 		p = p.apply(moves[i]);
@@ -22,7 +22,7 @@ TEST(MovesTest, FourMovesIsIdentity)
 TEST(MovesTest, MovesLen18)
 {
 	std::vector<Move> moves = init_three_moves();
-	EXPECT_EQ(18, moves.size());
+	EXPECT_EQ(12, moves.size());
 }
 
 TEST(PuzzleTest, IdentityIsSolved)
