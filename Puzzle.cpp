@@ -214,6 +214,18 @@ Puzzle get_cross()
 	return p;
 }
 
+Puzzle get_full()
+{
+	Puzzle p;
+	for (int i = 0; i < 12; i++) {
+		p.add_edge(Piece{i, {i, 0}});
+	}
+	for (int i = 0; i < 8; i++) {
+		p.add_corner(Piece{i, {i, 0}});
+	}
+	return p;
+}
+
 bool operator != (const Piece a, const Piece b)
 {
 	return !(a.id == b.id && a.loc.o == b.loc.o && a.loc.p == b.loc.p);
