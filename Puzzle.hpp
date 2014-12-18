@@ -2,7 +2,7 @@
 #define PUZZLE_HPP
 
 #include <vector>
-#include <unordered_map>
+#include <boost/container/flat_map.hpp>
 
 struct Location {
 	int p;
@@ -17,8 +17,8 @@ struct Piece {
 bool operator != (const Piece a, const Piece b);
 
 struct Move {
-	std::unordered_map<int, Location> edges;
-	std::unordered_map<int, Location> corners;
+	boost::container::flat_map<int, Location> edges;
+	boost::container::flat_map<int, Location> corners;
 };
 
 // Move base_moves[6];
