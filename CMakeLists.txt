@@ -8,6 +8,9 @@ set(SRC main.cpp Puzzle.cpp PruningTable.cpp)
 add_executable(csolve ${SRC})
 target_compile_options(csolve PRIVATE -Wall -Werror)
 
+add_executable(debug ${SRC})
+target_compile_options(debug PRIVATE -g -pg)
+
 include_directories(.)
 
 # Google Test
