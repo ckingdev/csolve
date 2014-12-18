@@ -139,11 +139,13 @@ Puzzle Puzzle::apply(const Move &m) const
 bool Puzzle::solved() const 
 /*****************************************************************************/
 {
-	for (uint i = 0; i < corners.size(); i++) { // change these to auto &i : whatever
+	std::size_t len = corners.size();
+	for (uint i = 0; i < len; i++) { // change these to auto &i : whatever
 		if (corners[i].id != corners[i].loc.p || corners[i].loc.o != 0)
 			return false;
 	}
-	for (uint i = 0; i < edges.size(); i++) {
+	len = edges.size();
+	for (uint i = 0; i < len; i++) {
 		if (edges[i].id != edges[i].loc.p || edges[i].loc.o != 0)
 			return false;
 	}
