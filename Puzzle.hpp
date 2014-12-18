@@ -30,6 +30,7 @@ public:
 	Puzzle(void) { edges.reserve(4); corners.reserve(0); }
 	Puzzle(const Puzzle & copy) : edges(copy.edges), corners(copy.corners) { }
 	Puzzle(Puzzle && tmp) : edges(std::move(tmp.edges)), corners(std::move(tmp.corners)) { }
+	Puzzle &operator=(const Puzzle & assign_from) = default;
 
 	void add_edge(Piece p); // These functions MUST sort on ID to ensure
 	void add_corner(Piece p);
