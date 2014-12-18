@@ -23,11 +23,11 @@ struct Move {
 
 // Move base_moves[6];
 std::vector<Move> init_three_moves();
-
+Move compose(Move &a, Move &b);
 class Puzzle 
 {
 public:
-	Puzzle(void) { edges.reserve(3); corners.reserve(2); }
+	Puzzle(void) { edges.reserve(4); corners.reserve(0); }
 	void add_edge(Piece p); // These functions MUST sort on ID to ensure
 	void add_corner(Piece p);
 	Puzzle apply(const Move &m) const;

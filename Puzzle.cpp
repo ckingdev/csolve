@@ -8,7 +8,7 @@ int base_move_e_ids[6][4] = {{0, 11, 4, 8}, {3, 0, 1, 2}, {1, 8, 5, 9},
 			     {2, 9, 6, 10}, {5, 4, 7, 6}, {3, 10, 7, 11}};
 
 Location base_move_e_perms[6][4] = {{{11, 0}, {4, 0}, {8, 0}, {0, 0}},
-				    {{0, 0}, {1, 1}, {2, 2}, {3, 3}},
+				    {{0, 0}, {1, 0}, {2, 0}, {3, 0}},
 				    {{8, 1}, {5, 1}, {9, 1}, {1, 1}},
 				    {{9, 0}, {6, 0}, {10, 0}, {2, 0}},
 				    {{4, 0}, {7, 0}, {6, 0}, {5, 0}},
@@ -75,9 +75,10 @@ std::vector<Move> init_three_moves()
 	for (int i = 0; i < 6; i++) {
 		Move two = compose(base_moves[i], base_moves[i]);
 		Move prime = compose(two, base_moves[i]);
-		base_moves.push_back(two);
+		// base_moves.push_back(two);
 		base_moves.push_back(prime);
 	}
+	printf("Using %lu moves...\n", base_moves.size());
 	return base_moves;
 }
 
