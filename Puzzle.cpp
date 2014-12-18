@@ -75,10 +75,9 @@ std::vector<Move> init_three_moves()
 	for (int i = 0; i < 6; i++) {
 		Move two = compose(base_moves[i], base_moves[i]);
 		Move prime = compose(two, base_moves[i]);
-		// base_moves.push_back(two);
+		base_moves.push_back(two);
 		base_moves.push_back(prime);
 	}
-	printf("Using %lu moves...\n", base_moves.size());
 	return base_moves;
 }
 

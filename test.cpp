@@ -17,3 +17,9 @@ TEST(MovesTest, FourMovesIsIdentity) {
 
 	}
 }
+
+TEST(MovesTest, MovesLen18)
+{
+	std::vector<Move> moves = init_three_moves();
+	EXPECT_EQ(18, moves.size());
+}
