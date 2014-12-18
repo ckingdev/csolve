@@ -108,10 +108,13 @@ Puzzle Puzzle::apply(const Move &m) const
 	Location l = {0, 0}; // these are overwritten each loop. Temp variables.
 	Piece p = {0, {0, 0}};
 
-	for (auto & corner : corners) {
+	auto corners_end = m.corners.end();
+	auto edges_end = m.edges.end();
 
-		if (m.corners.count(corner.loc.p)) {		
-			l = m.corners.at(corner.loc.p);
+	for (auto & corner : corners) {
+		auto corner_iter = m.corners.find(corner.loc.p);
+		if (corner_iter != corners_end) {
+			l = corner_iter->second;
 			l.o = (l.o + corner.loc.o) % 3;
 			p.id = corner.id;
 			p.loc = l;
@@ -121,8 +124,9 @@ Puzzle Puzzle::apply(const Move &m) const
 		}
 	}
 	for (auto & edge : edges) {
-		if (m.edges.count(edge.loc.p)) {
-			l = m.edges.at(edge.loc.p);
+		auto edge_iter = m.edges.find(edge.loc.p);
+		if (edge_iter != edges_end) {
+			l = edge_iter->second;
 			l.o = (l.o + edge.loc.o) % 2;
 			p.id = edge.id;
 			p.loc = l;
@@ -241,7 +245,9 @@ bool operator ==(const Puzzle &a, const Puzzle &b)
 std::vector<Puzzle> Puzzle::apply_moves(const std::vector<Move> &move_list) const
 {
 	std::vector<Puzzle> applied;
-	for (std::size_t i = 0; i < move_list.size(); i++) { // iterator
+	applied.reserve(20);
+	std::size_t len = move_list.size();
+	for (std::size_t i = 0; i < len; i++) { // iterator
 		applied.emplace_back(apply(move_list[i]));
 	}
 	return applied;
