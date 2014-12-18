@@ -21,9 +21,9 @@ struct Move {
 	std::unordered_map<int, Location> corners;
 };
 
-// Move base_moves[6];
 std::vector<Move> init_three_moves();
 Move compose(const Move &a, const Move &b);
+
 class Puzzle 
 {
 public:
@@ -46,5 +46,6 @@ bool operator ==(const Puzzle &a, const Puzzle &b); // Needed for unordered_map
 
 Puzzle get_first_block();
 Puzzle get_cross();
+Puzzle get_full();
 
 #endif
