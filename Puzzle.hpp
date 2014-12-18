@@ -8,12 +8,12 @@
 #include <iostream>
 
 struct Location {
-	int p;
-	int o;
+	char p;
+	char o;
 };
 
 struct Piece {
-	int id;
+	char id;
 	Location loc;
 };
 
@@ -134,8 +134,6 @@ public:
 		auto &a_corners = get_corners();
 		auto &b_edges = b.get_edges();
 		auto &b_corners = b.get_corners();
-		if (a_edges.size() != b_edges.size() || a_corners.size() != b_corners.size())
-			return false;
 
 		auto len = a_edges.size();
 		for (unsigned int i = 0; i < len; i++) {

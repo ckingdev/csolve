@@ -116,10 +116,10 @@ Puzzle<4,0> get_cross()
 Puzzle<12,8> get_full()
 {
 	Puzzle<12,8> p;
-	for (int i = 0; i < 12; i++) {
+	for (char i = 0; i < 12; i++) {
 		p.add_edge(Piece{i, {i, 0}});
 	}
-	for (int i = 0; i < 8; i++) {
+	for (char i = 0; i < 8; i++) {
 		p.add_corner(Piece{i, {i, 0}});
 	}
 	return p;
