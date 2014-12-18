@@ -48,7 +48,7 @@ Move compose(Move &a, Move &b)
 			Location tmp = a.corners[i];
 			if (b.corners.count(tmp.p)) {
 				tmp = b.corners[tmp.p];
-				tmp.o = (tmp.o + a.corners[i].o) % 2;
+				tmp.o = (tmp.o + a.corners[i].o) % 3;
 				ab.corners[i] = tmp;
 			} else {
 				ab.corners[i] = tmp;
@@ -190,6 +190,20 @@ Puzzle get_first_block()
 	p.add_edge(e6);
 	p.add_edge(e9);
 	p.add_edge(e10);
+	return p;
+}
+
+Puzzle get_cross()
+{
+	Puzzle p;
+	Piece e4 = {4, {4, 0}};
+	Piece e5 = {5, {5, 0}};
+	Piece e6 = {6, {6, 0}};
+	Piece e7 = {7, {7, 0}};
+	p.add_edge(e4);
+	p.add_edge(e5);
+	p.add_edge(e6);
+	p.add_edge(e7);
 	return p;
 }
 

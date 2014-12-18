@@ -45,5 +45,6 @@ private:
 bool operator ==(const Puzzle &a, const Puzzle &b); // Needed for unordered_map
 
 Puzzle get_first_block();
+Puzzle get_cross();
 
 #endif
