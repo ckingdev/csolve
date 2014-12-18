@@ -1,6 +1,8 @@
 project("csolve" CXX)
 cmake_minimum_required(VERSION 2.8)
 
+enable_testing()
+
 set(CMAKE_CXX_COMPILER clang++)
 set(CMAKE_CXX_FLAGS "-std=c++11 -O2")
 set(SRC main.cpp Puzzle.cpp PruningTable.cpp)
@@ -19,3 +21,4 @@ target_link_libraries(gtest pthread)
 set(TESTSRC Puzzle.cpp test.cpp)
 add_executable(test ${TESTSRC})
 target_link_libraries(test gtest)
+add_test(test test)
