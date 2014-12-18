@@ -91,11 +91,11 @@ Puzzle<3,2> get_first_block()
 	Piece e6 = {6, {6, 0}};
 	Piece e9 = {9, {9, 0}};
 	Piece e10 = {10, {10, 0}};
-	p.add_corner(c5);
-	p.add_corner(c6);
-	p.add_edge(e6);
-	p.add_edge(e9);
-	p.add_edge(e10);
+	p.add_corner(0, c5);
+	p.add_corner(1, c6);
+	p.add_edge(0, e6);
+	p.add_edge(1, e9);
+	p.add_edge(2, e10);
 	return p;
 }
 
@@ -106,10 +106,10 @@ Puzzle<4,0> get_cross()
 	Piece e5 = {5, {5, 0}};
 	Piece e6 = {6, {6, 0}};
 	Piece e7 = {7, {7, 0}};
-	p.add_edge(e4);
-	p.add_edge(e5);
-	p.add_edge(e6);
-	p.add_edge(e7);
+	p.add_edge(0, e4);
+	p.add_edge(1, e5);
+	p.add_edge(2, e6);
+	p.add_edge(3, e7);
 	return p;
 }
 
@@ -117,10 +117,10 @@ Puzzle<12,8> get_full()
 {
 	Puzzle<12,8> p;
 	for (char i = 0; i < 12; i++) {
-		p.add_edge(Piece{i, {i, 0}});
+		p.add_edge(i, Piece{i, {i, 0}});
 	}
 	for (char i = 0; i < 8; i++) {
-		p.add_corner(Piece{i, {i, 0}});
+		p.add_corner(i, Piece{i, {i, 0}});
 	}
 	return p;
 }

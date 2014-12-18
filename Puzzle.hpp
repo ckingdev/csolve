@@ -56,17 +56,11 @@ class Puzzle
 public:
 	typedef std::unordered_map<Puzzle, int, puzzle_hasher<Puzzle>> PruningTable;
 
-	Puzzle(void) : added_edges(0), added_corners(0) { }
-
-	void add_edge(Piece p) {
-		assert(added_edges < edges_num);
-		edges[added_edges] = p;
-		added_edges++;
+	void add_edge(int i, Piece p) {
+		edges[i] = p;
 	}
-	void add_corner(Piece p) {
-		assert(added_corners < corners_num);
-		corners[added_corners] = p;
-		added_corners++;
+	void add_corner(int i, Piece p) {
+		corners[i] = p;
 	}
 	Puzzle apply(const Move &m) const { 	
 		Puzzle new_puz;
@@ -77,6 +71,7 @@ public:
 		auto corners_end = m.corners.end();
 		auto edges_end = m.edges.end();
 
+		int i = 0;
 		for (auto & corner : corners) {
 			auto corner_iter = m.corners.find(corner.loc.p);
 			if (corner_iter != corners_end) {
@@ -84,11 +79,14 @@ public:
 				l.o = (l.o + corner.loc.o) % 3;
 				p.id = corner.id;
 				p.loc = l;
-				new_puz.add_corner(p);
+				new_puz.add_corner(i, p);
 			} else {
-				new_puz.add_corner(corner);
+				new_puz.add_corner(i, corner);
 			}
+			i++;
 		}
+
+		i = 0;
 		for (auto & edge : edges) {
 			auto edge_iter = m.edges.find(edge.loc.p);
 			if (edge_iter != edges_end) {
@@ -96,10 +94,11 @@ public:
 				l.o = (l.o + edge.loc.o) % 2;
 				p.id = edge.id;
 				p.loc = l;
-				new_puz.add_edge(p);
+				new_puz.add_edge(i, p);
 			} else {
-				new_puz.add_edge(edge);
+				new_puz.add_edge(i, edge);
 			}
+			i++;
 		}
 		return new_puz;
 	}
@@ -166,8 +165,6 @@ public:
 	const std::array<Piece, corners_num> &get_corners() const { return corners; }
 
 private:
-	int added_edges;
-	int added_corners;
 	std::array<Piece, edges_num> edges;
 	std::array<Piece, corners_num> corners;
 };
