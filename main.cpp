@@ -23,7 +23,7 @@
 int main()
 {
 	// ptr = (char*)malloc(max);
-	Puzzle p = get_cross();
+	auto p = get_cross();
 	auto base_moves = init_three_moves();
 	// for (int move_no = 0; move_no < 6; move_no++) {
 	// 	Move R2 = compose(base_moves[move_no], base_moves[move_no]);
@@ -41,7 +41,7 @@ int main()
 	// 	}
 		
 	// }
-	PruningTable pt = gen_pruning_table(p, 8, base_moves);
+	auto pt = gen_pruning_table(p, 8, base_moves);
 	// printf("%lu\n", pt.size());
 	// printf("%lu\n", allocated);
 	return 0;

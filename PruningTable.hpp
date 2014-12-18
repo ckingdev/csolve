@@ -13,14 +13,36 @@
 //   return seed;
 // }
 
-class puzzle_hasher {
-public:
-	std::size_t operator()(Puzzle const &p) const;
-};
+template<typename puzzle>
+void DLS(typename puzzle::PruningTable &pt, const puzzle &puz, int depth, int max_depth, const std::vector<Move> &move_set)
+{
+	if (depth > 0) {
+		auto new_puzs = puz.apply_moves(move_set);
+		for (auto &i : new_puzs)
+			DLS(pt, i, depth - 1, max_depth, move_set);
+	} else {
+		auto found = pt.find(puz);
+		if (found == pt.end())
+			pt[puz] = max_depth;
+		return;
+	}
+}
 
+/* 
+gen_pruning_table generates a position->(moves from puz) mapping.
 
-typedef std::unordered_map<Puzzle, int, puzzle_hasher> PruningTable;
-
-PruningTable gen_pruning_table(const Puzzle &puz, int max_depth, const std::vector<Move> &move_set);
+Iterative deepening depth first search is used in order to keep memory usage
+low.
+*/
+template<typename puzzle>
+typename puzzle::PruningTable gen_pruning_table(const puzzle &puz, int max_depth, const std::vector<Move> &move_set)
+{
+	typename puzzle::PruningTable pt;
+	for (int d = 1; d <= max_depth; d++) {
+		DLS(pt, puz, d, d, move_set);
+		printf("Depth %i: %lu\n", d, pt.size());
+	}
+	return pt;
+}
 
 #endif
