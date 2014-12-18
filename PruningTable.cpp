@@ -40,7 +40,9 @@ low.
 PruningTable gen_pruning_table(const Puzzle &puz, int max_depth, const std::vector<Move> &move_set)
 {
 	PruningTable pt;
-	for (int d = 1; d <= max_depth; d++)
+	for (int d = 1; d <= max_depth; d++) {
 		DLS(pt, puz, d, d, move_set);
+		printf("Depth %i: %lu\n", d, pt.size());
+	}
 	return pt;
 }

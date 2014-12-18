@@ -25,8 +25,42 @@ Location base_move_c_perms[6][4] = {{{3, 1}, {7, 2}, {4, 1}, {0, 2}},
 				    {{2, 1}, {6, 2}, {7, 1}, {3, 2}}};
 
 
+Move compose(Move &a, Move &b)
+{
+	Move ab;
+	for (int i = 0; i < 12; i++) {
+		if (a.edges.count(i)) {
+			Location tmp = a.edges[i];
+			if (b.edges.count(tmp.p)) {
+				tmp = b.edges[tmp.p];
+				tmp.o = (tmp.o + a.edges[i].o) % 2;
+				ab.edges[i] = tmp;
+			} else {
+				ab.edges[i] = tmp;
+			}
+		} else if (b.edges.count(i)) {
+			ab.edges[i] = b.edges[i];
+		}
+	}
 
-std::vector<Move> init_moves() 
+	for (int i = 0; i < 8; i++) {
+		if (a.corners.count(i)) {
+			Location tmp = a.corners[i];
+			if (b.corners.count(tmp.p)) {
+				tmp = b.corners[tmp.p];
+				tmp.o = (tmp.o + a.corners[i].o) % 2;
+				ab.corners[i] = tmp;
+			} else {
+				ab.corners[i] = tmp;
+			}
+		} else if (b.corners.count(i)) {
+			ab.corners[i] = b.corners[i];
+		}
+	}	
+	return ab;
+}
+
+std::vector<Move> init_three_moves() 
 {
 	std::vector<Move> base_moves;
 	for (int i = 0; i < 6; i++) {
@@ -37,8 +71,16 @@ std::vector<Move> init_moves()
 		}
 		base_moves.push_back(tmp);
 	}
+
+	for (int i = 0; i < 6; i++) {
+		Move two = compose(base_moves[i], base_moves[i]);
+		Move prime = compose(two, base_moves[i]);
+		base_moves.push_back(two);
+		base_moves.push_back(prime);
+	}
 	return base_moves;
 }
+
 
 /*****************************************************************************/
 void Puzzle::add_edge(Piece p)

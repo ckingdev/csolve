@@ -22,16 +22,14 @@ struct Move {
 };
 
 // Move base_moves[6];
-std::vector<Move> init_moves();
+std::vector<Move> init_three_moves();
 
 class Puzzle 
 {
 public:
 	Puzzle(void) { edges.reserve(3); corners.reserve(2); }
-/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 	void add_edge(Piece p); // These functions MUST sort on ID to ensure
-	void add_corner(Piece p); // that == and != work correctly
-/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+	void add_corner(Piece p);
 	Puzzle apply(const Move &m) const;
 	std::vector<Puzzle> apply_moves(const std::vector<Move> &move_list) const;
 	bool solved() const;
