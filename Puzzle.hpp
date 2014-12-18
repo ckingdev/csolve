@@ -23,7 +23,7 @@ struct Move {
 
 // Move base_moves[6];
 std::vector<Move> init_three_moves();
-Move compose(Move &a, Move &b);
+Move compose(const Move &a, const Move &b);
 class Puzzle 
 {
 public:
