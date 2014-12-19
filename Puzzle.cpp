@@ -60,6 +60,15 @@ Move compose(const Move &a, const Move &b)
 	return ab;
 }
 
+Move compose_seq(const std::vector<Move> &seq)
+{
+	Move a;
+	for (auto &i : seq) {
+		a = compose(a, i);
+	}
+	return a;
+}
+
 std::vector<Move> init_three_moves() 
 {
 	std::vector<Move> base_moves;
@@ -259,6 +268,15 @@ Puzzle get_full()
 	for (int i = 0; i < 12; i++) {
 		p.add_edge(Piece{i, {i, 0}});
 	}
+	for (int i = 0; i < 8; i++) {
+		p.add_corner(Piece{i, {i, 0}});
+	}
+	return p;
+}
+
+Puzzle get_corners()
+{
+	Puzzle p;
 	for (int i = 0; i < 8; i++) {
 		p.add_corner(Piece{i, {i, 0}});
 	}

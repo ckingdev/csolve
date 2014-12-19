@@ -21,9 +21,18 @@ struct Move {
 	std::unordered_map<int, Location> corners;
 };
 
-std::vector<Move> get_3x3_h_turns();
+// R U F L D B
+
+/* For htm moves:
+ * 0 1 2 3 4 5 6  7  8  9  10 11 12 13 14 15 16 17 
+ * R U F L D B R2 Ri U2 Ui F2 Fi L2 Li D2 Di B2 Bi
+ */
+std::vector<Move> get_3x3_h_turns(); 
 std::vector<Move> get_3x3_q_turns();
 Move compose(const Move &a, const Move &b);
+Move compose_seq(const std::vector<Move> &seq);
+// Sune R U R' U R U2 R'
+//      0 1 7  1 0 8  7
 
 class Puzzle 
 {
@@ -52,5 +61,6 @@ bool operator ==(const Puzzle &a, const Puzzle &b); // Needed for unordered_map
 Puzzle get_first_block();
 Puzzle get_cross();
 Puzzle get_full();
+Puzzle get_corners();
 
 #endif
