@@ -5,7 +5,7 @@
 TEST(MovesTest, FourMovesIsIdentity)
 {
 	Puzzle p = get_full();
-	std::vector<Move> moves = init_three_moves();
+	std::vector<Move> moves = get_3x3_h_turns();
 	for (int i = 0; i < 6; i++) {
 		p = p.apply(moves[i]);
 		EXPECT_FALSE(p.solved());
@@ -19,10 +19,16 @@ TEST(MovesTest, FourMovesIsIdentity)
 	}
 }
 
-TEST(MovesTest, MovesLen18)
+TEST(MovesTest, HTMLen18)
 {
-	std::vector<Move> moves = init_three_moves();
+	std::vector<Move> moves = get_3x3_h_turns();
 	EXPECT_EQ(18, moves.size());
+}
+
+TEST(MovesTest, QTMLen12)
+{
+	std::vector<Move> moves = get_3x3_q_turns();
+	EXPECT_EQ(12, moves.size());
 }
 
 TEST(PuzzleTest, IdentityIsSolved)

@@ -81,6 +81,46 @@ std::vector<Move> init_three_moves()
 	return base_moves;
 }
 
+std::vector<Move> get_3x3_h_turns()
+{
+	std::vector<Move> base_moves;
+	for (int i = 0; i < 6; i++) {
+		Move tmp;
+		for (int j = 0; j < 4; j++) {
+			tmp.corners[base_move_c_ids[i][j]] = base_move_c_perms[i][j];
+			tmp.edges[base_move_e_ids[i][j]] = base_move_e_perms[i][j];
+		}
+		base_moves.push_back(tmp);
+	}
+
+	for (int i = 0; i < 6; i++) {
+		Move two = compose(base_moves[i], base_moves[i]);
+		Move prime = compose(two, base_moves[i]);
+		base_moves.push_back(two);
+		base_moves.push_back(prime);
+	}
+	return base_moves;
+}
+
+std::vector<Move> get_3x3_q_turns()
+{
+	std::vector<Move> base_moves;
+	for (int i = 0; i < 6; i++) {
+		Move tmp;
+		for (int j = 0; j < 4; j++) {
+			tmp.corners[base_move_c_ids[i][j]] = base_move_c_perms[i][j];
+			tmp.edges[base_move_e_ids[i][j]] = base_move_e_perms[i][j];
+		}
+		base_moves.push_back(tmp);
+	}
+
+	for (int i = 0; i < 6; i++) {
+		Move two = compose(base_moves[i], base_moves[i]);
+		Move prime = compose(two, base_moves[i]);
+		base_moves.push_back(prime);
+	}
+	return base_moves;
+}
 
 /*****************************************************************************/
 void Puzzle::add_edge(Piece p)

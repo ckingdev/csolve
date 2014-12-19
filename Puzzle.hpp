@@ -21,7 +21,8 @@ struct Move {
 	std::unordered_map<int, Location> corners;
 };
 
-std::vector<Move> init_three_moves();
+std::vector<Move> get_3x3_h_turns();
+std::vector<Move> get_3x3_q_turns();
 Move compose(const Move &a, const Move &b);
 
 class Puzzle 
