@@ -4,7 +4,7 @@
 
 TEST(MovesTest, FourMovesIsIdentity)
 {
-	Puzzle p = get_full();
+	auto p = get_full();
 	std::vector<Move> moves = get_3x3_h_turns();
 	for (int i = 0; i < 6; i++) {
 		p = p.apply(moves[i]);
