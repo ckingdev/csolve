@@ -25,8 +25,8 @@ struct Move {
 };
 
 // R U F L D B
-
-/* For htm moves:
+/*
+ * For htm moves:
  * 0 1 2 3 4 5 6  7  8  9  10 11 12 13 14 15 16 17
  * R U F L D B R2 Ri U2 Ui F2 Fi L2 Li D2 Di B2 Bi
  */
@@ -34,8 +34,6 @@ std::vector<Move> get_3x3_h_turns();
 std::vector<Move> get_3x3_q_turns();
 Move compose(const Move &a, const Move &b);
 Move compose_seq(const std::vector<Move> &seq);
-// Sune R U R' U R U2 R'
-//      0 1 7  1 0 8  7
 
 template <typename puzzle> class puzzle_hasher {
   public:
@@ -60,15 +58,17 @@ std::size_t puzzle_hasher<puzzle>::operator()(puzzle const &p) const {
 
 template <std::size_t edges_num, std::size_t corners_num> class Puzzle {
   public:
-    typedef std::unordered_map<Puzzle, int, puzzle_hasher<Puzzle>> PruningTable;
+    typedef std::unordered_map<Puzzle, int, puzzle_hasher<Puzzle> >
+    PruningTable;
 
     void add_edge(int i, Piece p) { edges[i] = p; }
     void add_corner(int i, Piece p) { corners[i] = p; }
     Puzzle apply(const Move &m) const {
         Puzzle new_puz;
 
-        Location l = {0, 0}; // these are overwritten each loop. Temp variables.
-        Piece p = {0, {0, 0}};
+        Location l = { 0,
+                       0 }; // these are overwritten each loop. Temp variables.
+        Piece p = { 0, { 0, 0 } };
 
         auto corners_end = m.corners.end();
         auto edges_end = m.edges.end();
@@ -109,7 +109,7 @@ template <std::size_t edges_num, std::size_t corners_num> class Puzzle {
         std::vector<Puzzle> applied;
         applied.reserve(20);
         std::size_t len = move_list.size();
-        for (std::size_t i = 0; i < len; i++) { // iterator
+        for (std::size_t i = 0; i < len; i++) {
             applied.emplace_back(apply(move_list[i]));
         }
         return applied;
@@ -117,8 +117,7 @@ template <std::size_t edges_num, std::size_t corners_num> class Puzzle {
 
     bool solved() const {
         std::size_t len = corners.size();
-        for (unsigned int i = 0; i < len;
-             i++) { // change these to auto &i : whatever
+        for (unsigned int i = 0; i < len; i++) {
             if (corners[i].id != corners[i].loc.p || corners[i].loc.o != 0)
                 return false;
         }
@@ -152,7 +151,7 @@ template <std::size_t edges_num, std::size_t corners_num> class Puzzle {
 
     void print() const {
         std::cout << "Corners:\n";
-        for (uint i = 0; i < corners.size(); i++) { // iterator again
+        for (uint i = 0; i < corners.size(); i++) {
             printf("%i | %i %i\n", corners[i].id, corners[i].loc.p,
                    corners[i].loc.o);
         }
