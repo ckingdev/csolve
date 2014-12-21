@@ -40,7 +40,7 @@ TEST(PuzzleTest, CrossIsSolved) {
 
 // TODO: Write a test for get_depth_chart()
 
-TEST(PruningTableTest, CrossDepth5Correct) {
+TEST(PruningTableTest, CrossDepth5CorrectHTM) {
     auto p = get_cross();
     std::vector<Move> moves = get_3x3_h_turns();
     auto pt = gen_pruning_table(p, 5, moves);
@@ -51,4 +51,17 @@ TEST(PruningTableTest, CrossDepth5Correct) {
     EXPECT_EQ(1394, depth_chart[3]);
     EXPECT_EQ(9809, depth_chart[4]);
     EXPECT_EQ(46381, depth_chart[5]);
+}
+
+TEST(PruningTableTest, CrossDepth5CorrectQTM) {
+    auto p = get_cross();
+    std::vector<Move> moves = get_3x3_q_turns();
+    auto pt = gen_pruning_table(p, 5, moves);
+    auto depth_chart = get_depth_chart<Puzzle<4, 0> >(pt);
+    EXPECT_EQ(1, depth_chart[0]);
+    EXPECT_EQ(10, depth_chart[1]);
+    EXPECT_EQ(73, depth_chart[2]);
+    EXPECT_EQ(500, depth_chart[3]);
+    EXPECT_EQ(3078, depth_chart[4]);
+    EXPECT_EQ(15528, depth_chart[5]);
 }
