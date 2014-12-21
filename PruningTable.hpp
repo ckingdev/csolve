@@ -38,4 +38,19 @@ gen_pruning_table(const puzzle &puz, int max_depth,
     return pt;
 }
 
+template <typename puzzle>
+std::unordered_map<int, int> get_depth_chart(typename puzzle::PruningTable pt)
+{
+    std::unordered_map<int, int> chart;
+    for (auto &i : pt) {
+        int depth = pt[i];
+        if (chart.count(depth)) {
+            chart[depth]++;
+        } else {
+            chart[depth] = 1;
+        }
+    }
+    return chart;
+}
+
 #endif
