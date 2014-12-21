@@ -1,5 +1,6 @@
 #include "gtest/gtest.h"
 #include "Puzzle.hpp"
+#include "PruningTable.hpp"
 #include <vector>
 
 TEST(MovesTest, FourMovesIsIdentity) {
@@ -37,14 +38,17 @@ TEST(PuzzleTest, CrossIsSolved) {
     EXPECT_TRUE(p.solved());
 }
 
-// TEST(NSolveTest, SuneIsSevenHTM)
-// {
-// 	auto p = get_full();
-// // Sune R U R' U R U2 R'
-// //      0 1 7  1 0 8  7
-// 	int sune_codes[7] = {0, 1, 7, 1, 0, 8, 7};
-// 	std::vector<Move> sune_moves;
-// 	for (int i = 0; i < 7; i++) {
-// 		sune_moves.push_back(value_type &&__x)
-// 	}
-// }
+// TODO: Write a test for get_depth_chart()
+
+TEST(PruningTableTest, CrossDepth5Correct) {
+    auto p = get_cross();
+    std::vector<Move> moves = get_3x3_h_turns();
+    auto pt = gen_pruning_table(p, 5, moves);
+    auto depth_chart = get_depth_chart<Puzzle<4, 0>>(pt);
+    EXPECT_EQ(1, depth_chart[0]);
+    EXPECT_EQ(15, depth_chart[1]);
+    EXPECT_EQ(158, depth_chart[2]);
+    EXPECT_EQ(1394, depth_chart[3]);
+    EXPECT_EQ(9809, depth_chart[4]);
+    EXPECT_EQ(46381, depth_chart[5]);
+}

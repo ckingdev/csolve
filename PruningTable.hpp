@@ -31,9 +31,9 @@ typename puzzle::PruningTable
 gen_pruning_table(const puzzle &puz, int max_depth,
                   const std::vector<Move> &move_set) {
     typename puzzle::PruningTable pt;
-    for (int d = 1; d <= max_depth; d++) {
+    for (int d = 0; d <= max_depth; d++) {
         DLS(pt, puz, d, d, move_set);
-        printf("Depth %i: %lu\n", d, pt.size());
+        // printf("Depth %i: %lu\n", d, pt.size());
     }
     return pt;
 }
@@ -43,7 +43,7 @@ std::unordered_map<int, int> get_depth_chart(typename puzzle::PruningTable pt)
 {
     std::unordered_map<int, int> chart;
     for (auto &i : pt) {
-        int depth = pt[i];
+        int depth = i.second;
         if (chart.count(depth)) {
             chart[depth]++;
         } else {
