@@ -14,8 +14,8 @@ target_compile_options(csolve PRIVATE -Wall -Werror)
 #target_compile_options(debug PRIVATE -g -pg)
 
 # Google Test
-include_directories(.)
-add_library(gtest gtest/gtest_main.cc gtest/gtest-all.cc)
+include_directories(include)
+add_library(gtest include/gtest/gtest_main.cc include/gtest/gtest-all.cc)
 target_link_libraries(gtest pthread)
 
 set(TESTSRC Puzzle.cpp test.cpp)
