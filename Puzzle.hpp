@@ -7,11 +7,13 @@
 #include <unordered_map>
 #include <iostream>
 
+// Location stores a place on the puzzle and a twist.
 struct Location {
     char p;
     char o;
 };
 
+// Piece stores an identifier (i.e. color combination) and a location.
 struct Piece {
     char id;
     Location loc;
@@ -19,20 +21,22 @@ struct Piece {
 
 bool operator!=(const Piece a, const Piece b);
 
+// Move is a mapping between a place on the puzzle and its transformation.
 struct Move {
     std::unordered_map<int, Location> edges;
     std::unordered_map<int, Location> corners;
 };
 
-// R U F L D B
-/*
- * For htm moves:
- * 0 1 2 3 4 5 6  7  8  9  10 11 12 13 14 15 16 17
- * R U F L D B R2 Ri U2 Ui F2 Fi L2 Li D2 Di B2 Bi
- */
+// get_3x3_h_turns() gives a vector of unit moves in the 3x3 half turn metric.
 std::vector<Move> get_3x3_h_turns();
+
+// get_3x3_h_turns() gives a vector of unit moves in the 3x3 quarter turn metric.
 std::vector<Move> get_3x3_q_turns();
+
+// compose() returns a new Move that is the composition of a and b.
 Move compose(const Move &a, const Move &b);
+
+// compose_seq() returns a new Move that is the composition of a vector of Move.
 Move compose_seq(const std::vector<Move> &seq);
 
 template <typename puzzle> class puzzle_hasher {

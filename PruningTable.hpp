@@ -20,12 +20,11 @@ void DLS(typename puzzle::PruningTable &pt, const puzzle &puz, int depth,
     }
 }
 
-/*
-gen_pruning_table generates a position->(moves from puz) mapping.
 
-Iterative deepening depth first search is used in order to keep memory usage
-low.
-*/
+// gen_pruning_table() generates a position->(moves from puz) mapping.
+//
+// Iterative deepening depth first search is used in order to keep memory usage
+// low.
 template <typename puzzle>
 typename puzzle::PruningTable
 gen_pruning_table(const puzzle &puz, int max_depth,
@@ -38,6 +37,9 @@ gen_pruning_table(const puzzle &puz, int max_depth,
     return pt;
 }
 
+
+// get_depth_chart() processes a pruning table and creates a chart of the
+// number of positions at each depth.
 template <typename puzzle>
 std::unordered_map<int, int> get_depth_chart(typename puzzle::PruningTable pt) {
     std::unordered_map<int, int> chart;
