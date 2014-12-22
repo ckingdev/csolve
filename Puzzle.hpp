@@ -7,14 +7,21 @@
 #include <unordered_map>
 #include <iostream>
 
+#include "cereal/types/array.hpp"
+#include "cereal/types/unordered_map.hpp"
+
 struct Location {
     char p;
     char o;
+
+    template <class Archive> void serialize(Archive &ar) { ar(p, o); }
 };
 
 struct Piece {
     char id;
     Location loc;
+
+    template <class Archive> void serialize(Archive &ar) { ar(id, loc); }
 };
 
 bool operator!=(const Piece a, const Piece b);
@@ -58,17 +65,15 @@ std::size_t puzzle_hasher<puzzle>::operator()(puzzle const &p) const {
 
 template <std::size_t edges_num, std::size_t corners_num> class Puzzle {
   public:
-    typedef std::unordered_map<Puzzle, int, puzzle_hasher<Puzzle> >
-    PruningTable;
+    typedef std::unordered_map<Puzzle, int, puzzle_hasher<Puzzle>> PruningTable;
 
     void add_edge(int i, Piece p) { edges[i] = p; }
     void add_corner(int i, Piece p) { corners[i] = p; }
     Puzzle apply(const Move &m) const {
         Puzzle new_puz;
 
-        Location l = { 0,
-                       0 }; // these are overwritten each loop. Temp variables.
-        Piece p = { 0, { 0, 0 } };
+        Location l = {0, 0}; // these are overwritten each loop. Temp variables.
+        Piece p = {0, {0, 0}};
 
         auto corners_end = m.corners.end();
         auto edges_end = m.edges.end();
@@ -168,6 +173,8 @@ template <std::size_t edges_num, std::size_t corners_num> class Puzzle {
         return corners;
     }
 
+    template <class Archive> void serialize(Archive &ar) { ar(edges, corners); }
+
   private:
     std::array<Piece, edges_num> edges;
     std::array<Piece, corners_num> corners;
@@ -176,6 +183,6 @@ template <std::size_t edges_num, std::size_t corners_num> class Puzzle {
 Puzzle<3, 2> get_first_block();
 Puzzle<4, 0> get_cross();
 Puzzle<12, 8> get_full();
-Puzzle<1, 1> get_2x1(); 
+Puzzle<1, 1> get_2x1();
 
 #endif
