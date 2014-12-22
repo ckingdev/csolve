@@ -156,6 +156,13 @@ Puzzle<12, 8> get_full() {
     return p;
 }
 
+Puzzle<1, 1> get_2x1() {
+    Puzzle<1, 1> p;
+    p.add_edge(0, Piece{ 6, { 6, 0 } });
+    p.add_corner(0, Piece{ 5, { 5, 0 } });
+    return p;
+}
+
 bool operator!=(const Piece a, const Piece b) {
     return !(a.id == b.id && a.loc.o == b.loc.o && a.loc.p == b.loc.p);
 }

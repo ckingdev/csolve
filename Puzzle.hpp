@@ -176,5 +176,6 @@ template <std::size_t edges_num, std::size_t corners_num> class Puzzle {
 Puzzle<3, 2> get_first_block();
 Puzzle<4, 0> get_cross();
 Puzzle<12, 8> get_full();
+Puzzle<1, 1> get_2x1(); 
 
 #endif
