@@ -95,12 +95,16 @@ TEST(PruningTableTest, Serialization) {
     auto pt = gen_pruning_table(p, 3, moves);
 
     std::stringstream ss;
-    cereal::BinaryOutputArchive oarchive(ss);
-    oarchive(pt);
+    {
+        cereal::BinaryOutputArchive oarchive(ss);
+        oarchive(pt);
+    }
 
-    cereal::BinaryInputArchive iarchive(ss);
     decltype(p)::PruningTable loaded_pt;
-    iarchive(loaded_pt);
+    {
+        cereal::BinaryInputArchive iarchive(ss);
+        iarchive(loaded_pt);
+    }
 
     EXPECT_EQ(pt, loaded_pt);
 }
