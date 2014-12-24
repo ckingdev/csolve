@@ -55,11 +55,11 @@ template <typename puzzle> class PuzzleHasher {
 // Represents a bag of edges and a bag of corners, each of which is a Piece.
 template <std::size_t edges_num, std::size_t corners_num> class Puzzle {
   public:
-    typedef std::unordered_map<Puzzle, int, PuzzleHasher<Puzzle>> PruningTable;
+    typedef std::unordered_map<Puzzle, int, PuzzleHasher<Puzzle> > PruningTable;
 
     // Adds an edge p to the puzzle in position i of the array.
     void add_edge(int i, Piece p);
-    
+
     // Adds a corner p to the puzzle in position i of the array.
     void add_corner(int i, Piece p);
 
@@ -69,7 +69,7 @@ template <std::size_t edges_num, std::size_t corners_num> class Puzzle {
     // Equivalent to using apply() with each move in the list and putting the
     // results in a vector.
     std::vector<Puzzle> apply_moves(const std::vector<Move> &move_list) const;
-    
+
     bool solved() const;
     bool operator==(const Puzzle &b) const;
 
@@ -90,7 +90,6 @@ template <std::size_t edges_num, std::size_t corners_num> class Puzzle {
     std::array<Piece, edges_num> edges;
     std::array<Piece, corners_num> corners;
 };
-
 
 // Returns a puzzle with only the pieces corresponding to a fixed Roux f.b.
 Puzzle<3, 2> get_first_block();

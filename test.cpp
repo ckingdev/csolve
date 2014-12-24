@@ -47,7 +47,7 @@ TEST(PruningTableTest, CrossDepth5CorrectHTM) {
     auto p = get_cross();
     std::vector<Move> moves = get_3x3_h_turns();
     auto pt = gen_pruning_table(p, 5, moves);
-    auto depth_chart = get_depth_chart<Puzzle<4, 0>>(pt);
+    auto depth_chart = get_depth_chart<Puzzle<4, 0> >(pt);
     EXPECT_EQ(1, depth_chart[0]);
     EXPECT_EQ(15, depth_chart[1]);
     EXPECT_EQ(158, depth_chart[2]);
@@ -61,7 +61,7 @@ TEST(PruningTableTest, CrossDepth5CorrectQTM) {
     auto p = get_cross();
     std::vector<Move> moves = get_3x3_q_turns();
     auto pt = gen_pruning_table(p, 5, moves);
-    auto depth_chart = get_depth_chart<Puzzle<4, 0>>(pt);
+    auto depth_chart = get_depth_chart<Puzzle<4, 0> >(pt);
     EXPECT_EQ(1, depth_chart[0]);
     EXPECT_EQ(10, depth_chart[1]);
     EXPECT_EQ(73, depth_chart[2]);
@@ -81,9 +81,9 @@ TEST(PruningTableTest, 2x1TableSizeCorrect) {
 // corners only
 TEST(PruningTableTest, 3CornerTableSizeCorrect) {
     Puzzle<0, 3> p;
-    p.add_corner(0, Piece{0, {0, 0}});
-    p.add_corner(1, Piece{1, {1, 0}});
-    p.add_corner(2, Piece{2, {2, 0}});
+    p.add_corner(0, Piece{ 0, { 0, 0 } });
+    p.add_corner(1, Piece{ 1, { 1, 0 } });
+    p.add_corner(2, Piece{ 2, { 2, 0 } });
     auto base_moves = get_3x3_h_turns();
     auto pt = gen_pruning_table(p, 6, base_moves);
     EXPECT_EQ(9072, pt.size());

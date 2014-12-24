@@ -20,7 +20,6 @@ void DLS(typename puzzle::PruningTable &pt, const puzzle &puz, int depth,
     }
 }
 
-
 // gen_pruning_table() generates a position->(moves from puz) mapping.
 //
 // Iterative deepening depth first search is used in order to keep memory usage
@@ -36,7 +35,6 @@ gen_pruning_table(const puzzle &puz, int max_depth,
     }
     return pt;
 }
-
 
 // get_depth_chart() processes a pruning table and creates a chart of the
 // number of positions at each depth.

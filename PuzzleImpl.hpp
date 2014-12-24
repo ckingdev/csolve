@@ -36,8 +36,8 @@ Puzzle<edges_num, corners_num>
 Puzzle<edges_num, corners_num>::apply(const Move &m) const {
     Puzzle new_puz;
 
-    Location l = {0, 0}; // these are overwritten each loop. Temp variables.
-    Piece p = {0, {0, 0}};
+    Location l = { 0, 0 }; // these are overwritten each loop. Temp variables.
+    Piece p = { 0, { 0, 0 } };
 
     auto corners_end = m.corners.end();
     auto edges_end = m.edges.end();
@@ -75,7 +75,7 @@ Puzzle<edges_num, corners_num>::apply(const Move &m) const {
 }
 
 template <std::size_t edges_num, std::size_t corners_num>
-std::vector<Puzzle<edges_num, corners_num>>
+std::vector<Puzzle<edges_num, corners_num> >
 Puzzle<edges_num, corners_num>::apply_moves(
     const std::vector<Move> &move_list) const {
     std::vector<Puzzle> applied;
