@@ -46,30 +46,44 @@ Move compose(const Move &a, const Move &b);
 // compose_seq() returns a new Move that is the composition of a vector of Move.
 Move compose_seq(const std::vector<Move> &seq);
 
+// hashes a Puzzle object.
 template <typename puzzle> class PuzzleHasher {
   public:
     std::size_t operator()(puzzle const &p) const;
 };
 
+// Represents a bag of edges and a bag of corners, each of which is a Piece.
 template <std::size_t edges_num, std::size_t corners_num> class Puzzle {
   public:
     typedef std::unordered_map<Puzzle, int, PuzzleHasher<Puzzle>> PruningTable;
 
+    // Adds an edge p to the puzzle in position i of the array.
     void add_edge(int i, Piece p);
+    
+    // Adds a corner p to the puzzle in position i of the array.
     void add_corner(int i, Piece p);
 
+    // Applies a move m to the puzzle and returns the result.
     Puzzle apply(const Move &m) const;
+
+    // Equivalent to using apply() with each move in the list and putting the
+    // results in a vector.
     std::vector<Puzzle> apply_moves(const std::vector<Move> &move_list) const;
+    
     bool solved() const;
     bool operator==(const Puzzle &b) const;
 
     void print() const;
 
+    // Returns an array of the edges stored in the puzzle.
     const std::array<Piece, edges_num> &get_edges() const { return edges; }
+
+    // Returns an array of the corners stored in the puzzle.
     const std::array<Piece, corners_num> &get_corners() const {
         return corners;
     }
 
+    // Enables the serialization and saving to disk of the PruningTable.
     template <class Archive> void serialize(Archive &ar) { ar(edges, corners); }
 
   private:
@@ -77,9 +91,17 @@ template <std::size_t edges_num, std::size_t corners_num> class Puzzle {
     std::array<Piece, corners_num> corners;
 };
 
+
+// Returns a puzzle with only the pieces corresponding to a fixed Roux f.b.
 Puzzle<3, 2> get_first_block();
+
+// Returns a puzzle with only the pieces corresponding to a Fridrich cross.
 Puzzle<4, 0> get_cross();
+
+// Returns a puzzle with all 3x3 cube pieces.
 Puzzle<12, 8> get_full();
+
+// Returns a puzzle with only one corner and one edge.
 Puzzle<1, 1> get_2x1();
 
 #include "PuzzleImpl.hpp"
