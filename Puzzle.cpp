@@ -36,14 +36,13 @@ Location base_move_c_perms[6][4] = {
     { { 2, 1 }, { 6, 2 }, { 7, 1 }, { 3, 2 } }
 };
 
-Move new_move() 
-{
+Move new_move() {
     Move move;
     for (int i = 0; i < 8; i++) {
-        move.corners[i] = Location{char(i), 0};
+        move.corners[i] = Location{ char(i), 0 };
     }
     for (int i = 0; i < 12; i++) {
-        move.edges[i] = Location{char(i), 0};
+        move.edges[i] = Location{ char(i), 0 };
     }
     return move;
 }
@@ -55,7 +54,7 @@ Move compose(const Move &a, const Move &b) {
         tmp = b.edges[tmp.p];
         tmp.o = (tmp.o + a.edges[i].o) % 2;
         ab.edges[i] = tmp;
-    }; 
+    };
 
     for (int i = 0; i < 8; i++) {
         Location tmp = a.corners[i];
@@ -65,40 +64,6 @@ Move compose(const Move &a, const Move &b) {
     }
     return ab;
 }
-
-// Move compose(const Move &a, const Move &b) {
-//     Move ab;
-//     for (int i = 0; i < 12; i++) {
-//         if (a.edges.count(i)) {
-//             Location tmp = a.edges.at(i);
-//             if (b.edges.count(tmp.p)) {
-//                 tmp = b.edges.at(tmp.p);
-//                 tmp.o = (tmp.o + a.edges.at(i).o) % 2;
-//                 ab.edges[i] = tmp;
-//             } else {
-//                 ab.edges[i] = tmp;
-//             }
-//         } else if (b.edges.count(i)) {
-//             ab.edges[i] = b.edges.at(i);
-//         }
-//     }
-
-//     for (int i = 0; i < 8; i++) {
-//         if (a.corners.count(i)) {
-//             Location tmp = a.corners.at(i);
-//             if (b.corners.count(tmp.p)) {
-//                 tmp = b.corners.at(tmp.p);
-//                 tmp.o = (tmp.o + a.corners.at(i).o) % 3;
-//                 ab.corners[i] = tmp;
-//             } else {
-//                 ab.corners[i] = tmp;
-//             }
-//         } else if (b.corners.count(i)) {
-//             ab.corners[i] = b.corners.at(i);
-//         }
-//     }
-//     return ab;
-// }
 
 Move compose_seq(const std::vector<Move> &seq) {
     Move a;

@@ -28,10 +28,6 @@ struct Piece {
 bool operator!=(const Piece a, const Piece b);
 
 // Move is a mapping between a place on the puzzle and its transformation.
-// struct Move {
-//     std::unordered_map<int, Location> edges;
-//     std::unordered_map<int, Location> corners;
-// };
 struct Move {
     std::array<Location, 12> edges;
     std::array<Location, 8> corners;
