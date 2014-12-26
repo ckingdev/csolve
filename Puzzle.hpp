@@ -28,10 +28,16 @@ struct Piece {
 bool operator!=(const Piece a, const Piece b);
 
 // Move is a mapping between a place on the puzzle and its transformation.
+// struct Move {
+//     std::unordered_map<int, Location> edges;
+//     std::unordered_map<int, Location> corners;
+// };
 struct Move {
-    std::unordered_map<int, Location> edges;
-    std::unordered_map<int, Location> corners;
+    std::array<Location, 12> edges;
+    std::array<Location, 8> corners;
 };
+
+Move new_move();
 
 // get_3x3_h_turns() gives a vector of unit moves in the 3x3 half turn metric.
 std::vector<Move> get_3x3_h_turns();
