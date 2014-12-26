@@ -91,7 +91,7 @@ Puzzle<edges_num, corners_num>::apply(const Move &m) const {
     i = 0;
     for (auto &corner : corners) {
         p.loc.p = m.corners[corner.loc.p].p;
-        p.loc.o = (m.corners[corner.loc.p].o + corner.loc.o) % 2;
+        p.loc.o = (m.corners[corner.loc.p].o + corner.loc.o) % 3;
         p.id = corner.id;
         new_puz.add_corner(i, p);
         i++;

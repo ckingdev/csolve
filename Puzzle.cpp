@@ -111,7 +111,7 @@ Move compose_seq(const std::vector<Move> &seq) {
 std::vector<Move> get_3x3_q_turns() {
     std::vector<Move> base_moves;
     for (int i = 0; i < 6; i++) {
-        Move tmp;
+        Move tmp = new_move();
         for (int j = 0; j < 4; j++) {
             tmp.corners[base_move_c_ids[i][j]] = base_move_c_perms[i][j];
             tmp.edges[base_move_e_ids[i][j]] = base_move_e_perms[i][j];
@@ -130,7 +130,7 @@ std::vector<Move> get_3x3_q_turns() {
 std::vector<Move> get_3x3_h_turns() {
     std::vector<Move> base_moves;
     for (int i = 0; i < 6; i++) {
-        Move tmp;
+        Move tmp = new_move();
         for (int j = 0; j < 4; j++) {
             tmp.corners[base_move_c_ids[i][j]] = base_move_c_perms[i][j];
             tmp.edges[base_move_e_ids[i][j]] = base_move_e_perms[i][j];
