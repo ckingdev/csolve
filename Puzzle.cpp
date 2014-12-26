@@ -40,15 +40,16 @@ Move new_move()
 {
     Move move;
     for (int i = 0; i < 8; i++) {
-        move.corners[i] = Location{i, 0};
+        move.corners[i] = Location{char(i), 0};
     }
     for (int i = 0; i < 12; i++) {
-        move.edges[i] = Location{i, 0};
+        move.edges[i] = Location{char(i), 0};
     }
+    return move;
 }
 
 Move compose(const Move &a, const Move &b) {
-    Move ab;
+    Move ab = new_move();
     for (int i = 0; i < 12; i++) {
         Location tmp = a.edges[i];
         tmp = b.edges[tmp.p];
