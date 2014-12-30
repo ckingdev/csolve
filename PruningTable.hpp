@@ -31,7 +31,7 @@ gen_pruning_table(const puzzle &puz, int max_depth,
     typename puzzle::PruningTable pt;
     for (int d = 0; d <= max_depth; d++) {
         DLS(pt, puz, d, d, move_set);
-        // printf("Depth %i: %lu\n", d, pt.size());
+        printf("Depth %i: %lu\n", d, pt.size());
     }
     return pt;
 }

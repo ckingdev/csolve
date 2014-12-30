@@ -27,7 +27,7 @@ struct Piece {
 
 bool operator!=(const Piece a, const Piece b);
 
-// Move is a mapping between a place on the puzzle and its transformation.
+// Move is a mapping between a place on the puzzle and its transformation.a
 struct Move {
     std::array<Location, 12> edges;
     std::array<Location, 8> corners;
@@ -41,6 +41,9 @@ std::vector<Move> get_3x3_h_turns();
 // get_3x3_h_turns() gives a vector of unit moves in the 3x3 quarter turn
 // metric.
 std::vector<Move> get_3x3_q_turns();
+
+// Returns a vector of the moves in <R, U, F> in htm.
+std::vector<Move> get_2x2_h3gen_turns();
 
 // compose() returns a new Move that is the composition of a and b.
 Move compose(const Move &a, const Move &b);
@@ -104,6 +107,11 @@ Puzzle<12, 8> get_full();
 
 // Returns a puzzle with only one corner and one edge.
 Puzzle<1, 1> get_2x1();
+
+// Returns a puzzle with only corners.
+Puzzle<0, 8> get_corners();
+
+Puzzle<0, 4> get_4_corners();
 
 #include "PuzzleImpl.hpp"
 

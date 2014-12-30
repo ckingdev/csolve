@@ -112,6 +112,26 @@ std::vector<Move> get_3x3_h_turns() {
     return base_moves;
 }
 
+std::vector<Move> get_2x2_h3gen_turns() {
+    std::vector<Move> base_moves;
+    for (int i = 0; i < 3; i++) {
+        Move tmp = new_move();
+        for (int j = 0; j < 4; j++) {
+            tmp.corners[base_move_c_ids[i][j]] = base_move_c_perms[i][j];
+            tmp.edges[base_move_e_ids[i][j]] = base_move_e_perms[i][j];
+        }
+        base_moves.push_back(tmp);
+    }
+
+    for (int i = 0; i < 3; i++) {
+        Move two = compose(base_moves[i], base_moves[i]);
+        Move prime = compose(two, base_moves[i]);
+        base_moves.push_back(two);
+        base_moves.push_back(prime);
+    }
+    return base_moves;
+}
+
 Puzzle<3, 2> get_first_block() {
     Puzzle<3, 2> p;
     Piece c5 = { 5, { 5, 0 } };
@@ -155,6 +175,22 @@ Puzzle<1, 1> get_2x1() {
     Puzzle<1, 1> p;
     p.add_edge(0, Piece{ 6, { 6, 0 } });
     p.add_corner(0, Piece{ 5, { 5, 0 } });
+    return p;
+}
+
+Puzzle<0, 8> get_corners() {
+    Puzzle<0, 8> p;
+    for (char i = 0; i < 8; i++) {
+        p.add_corner(i, Piece{ i, { i, 0 } });
+    }
+    return p;
+}
+
+Puzzle<0, 4> get_4_corners() {
+    Puzzle<0, 4> p;
+    for (char i = 0; i < 4; i++) {
+        p.add_corner(i, Piece{ i, { i, 0 } });
+    }
     return p;
 }
 
