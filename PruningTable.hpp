@@ -52,4 +52,13 @@ std::unordered_map<int, int> get_depth_chart(typename puzzle::PruningTable pt) {
     return chart;
 }
 
+Puzzle<0, 4> extract_4_corners(const Puzzle<0, 8> &p) {
+    Puzzle<0, 4> extracted;
+    auto corners = p.get_corners();
+    for (int i = 0; i < 4; i++) {
+        extracted.add_corner(i, corners[i]);
+    }
+    return extracted;
+}
+
 #endif
