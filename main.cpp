@@ -9,18 +9,16 @@
 #include <fstream>
 
 int main() {
-    Puzzle<0, 8> p = get_corners();
+    Puzzle<0, 4> p = get_4_corners();
     auto base_moves = get_2x2_h3gen_turns();
-    std::cout<<base_moves.size()<<std::endl;
-    // decltype(p)::PruningTable pt = gen_pruning_table(p, 8, base_moves);
-    // save_pruning_table<decltype(p)>("test.prune", pt);
-    std::cout << p.solved() << std::endl;
-    p = p.apply(base_moves[0]);
-    // p = p.apply(base_moves[4]);
-    std::cout << p.solved() << std::endl;
-    std::vector<int> sol = IDDFS(p, base_moves, 3);
-    for (auto &i : sol) {
-        std::cout << i << " ";
-    }
+    std::cout << base_moves.size() << std::endl;
+    decltype(p)::PruningTable pt = gen_pruning_table(p, 6, base_moves);
+    Puzzle<0, 8> full = get_corners();
+    full = full.apply(base_moves[0]);
+    full = full.apply(base_moves[1]);
+    full = full.apply(base_moves[2]);
+    Solution sol = IDAstar(full, base_moves, 8, pt);
+    // Solution sol = IDDFS(full, base_moves, 4);
+    std::cout << sol.status << std::endl;
     return 0;
 }

@@ -50,7 +50,7 @@ Solution IDDFS(const puzzle &p, const std::vector<Move> &move_set,
 bool IDAstar_DLS(const Puzzle<0, 8> &p, const std::vector<Move> &move_set,
                  int depth, int max_depth, std::vector<int> &sol,
                  const Puzzle<0, 4>::PruningTable &pt) {
-    if (depth <= max_depth) {
+    if (depth < max_depth) {
         auto new_ps = p.apply_moves(move_set);
         int len = move_set.size();
         for (int i = 0; i < len; i++) {
@@ -81,7 +81,7 @@ Solution IDAstar(const Puzzle<0, 8> &p, const std::vector<Move> &move_set,
     for (int i = 1; i <= max_depth; i++) {
         std::vector<int> sol;
         sol.resize(i);
-        bool solved = IDAstar_DLS(p, move_set, i, i, sol, pt);
+        bool solved = IDAstar_DLS(p, move_set, 0, i, sol, pt);
         if (solved) {
             return Solution{ SOLVED, sol };
         }
