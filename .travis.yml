@@ -3,4 +3,4 @@ compiler:
   - gcc
   - clang
 # Change this to your needs
-script: cd build && make
+script: cd build && cmake .. && make
