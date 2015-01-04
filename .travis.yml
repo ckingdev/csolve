@@ -1,5 +1,5 @@
 language: cpp
 compiler:
-  - clang
+  - clang++
 # Change this to your needs
-script: clang++ -std=c++11 main.cpp Puzzle.cpp -Iinclude/
+script: mkdir build && cd build && cmake .. && make
