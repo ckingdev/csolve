@@ -8,7 +8,7 @@ set(CMAKE_CXX_FLAGS "-std=c++11 -O2")
 set(SRC main.cpp Puzzle.cpp)
 
 add_executable(csolve ${SRC})
-target_compile_options(csolve PRIVATE -Wall -Werror)
+#target_compile_options(csolve PRIVATE -Wall -Werror)
 
 #add_executable(debug ${SRC})
 #target_compile_options(debug PRIVATE -g -pg)
