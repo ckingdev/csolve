@@ -6,8 +6,8 @@
 #include <cassert>
 #include <unordered_map>
 #include <iostream>
-#include "include/cereal/types/array.hpp"
-#include "include/cereal/types/unordered_map.hpp"
+#include "cereal/types/array.hpp"
+#include "cereal/types/unordered_map.hpp"
 
 // Location stores a place on the puzzle and a twist.
 struct Location {

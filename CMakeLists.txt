@@ -1,23 +1,25 @@
 project("csolve" CXX)
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.0)
 
 enable_testing()
-
 set(CMAKE_CXX_FLAGS "-std=c++11 -O2")
-set(SRC main.cpp Puzzle.cpp)
 
-add_executable(csolve ${SRC})
-target_compile_options(csolve PRIVATE -Wall -Werror)
+add_subdirectory(lib)
 
-#add_executable(debug ${SRC})
-#target_compile_options(debug PRIVATE -g -pg)
+set(SRC src/Puzzle.cpp)
 
-# Google Test
-include_directories(include)
-add_library(gtest include/gtest/gtest_main.cc include/gtest/gtest-all.cc)
-target_link_libraries(gtest pthread)
+add_library(libcsolve ${SRC})
+target_compile_options(libcsolve PRIVATE -Wall -Werror)
+target_include_directories(libcsolve PUBLIC include)
+target_link_libraries(libcsolve cereal)
 
-set(TESTSRC Puzzle.cpp test.cpp)
-add_executable(csolve-test ${TESTSRC})
-target_link_libraries(csolve-test gtest)
+set(EXEC_SRC src/main.cpp)
+
+add_executable(csolve ${EXEC_SRC})
+target_link_libraries(csolve libcsolve)
+
+set(TEST_SRC test/test.cpp)
+
+add_executable(csolve-test ${TEST_SRC})
+target_link_libraries(csolve-test libcsolve gtest)
 add_test(csolve-test csolve-test)
