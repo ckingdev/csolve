@@ -2,7 +2,7 @@ language: cpp
 
 compiler:
   # TODO: Clang is currently giving issues
-  #- clang
+  - clang
   - gcc
 
 before_install:
@@ -17,9 +17,7 @@ before_install:
   - sudo apt-get update -qq
 
 install: 
-  - sudo apt-get install cmake
-  - sudo apt-get install libboost-all-dev
-  - sudo pip install cpp-coveralls
+  - sudo apt-get install -qq cmake-2.8
 
   # Always install g++4.8.1
   - sudo apt-get install -qq g++-4.8
@@ -37,8 +35,6 @@ script:
   - cd build 
   - cmake .. 
   - make
-  - make check
 
 after_script:
   - ctest .
-  # - make valgrind
