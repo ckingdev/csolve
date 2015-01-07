@@ -22,7 +22,7 @@ set(TEST_SRC test/test.cpp)
 
 add_executable(csolve-test ${TEST_SRC})
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-  target_compile_options(csolve-test PRIVATE --enable-gcov)
+  target_compile_options(csolve-test PRIVATE -fprofile-arcs -ftest-coverage)
 endif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 target_link_libraries(csolve-test libcsolve gtest)
 add_test(csolve-test csolve-test)
