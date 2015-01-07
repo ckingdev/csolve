@@ -21,6 +21,6 @@ target_link_libraries(csolve libcsolve)
 set(TEST_SRC test/test.cpp)
 
 add_executable(csolve-test ${TEST_SRC})
-target_compile_options(csolve-test --enable-gcov)
+target_compile_options(csolve-test PRIVATE --enable-gcov)
 target_link_libraries(csolve-test libcsolve gtest)
 add_test(csolve-test csolve-test)
