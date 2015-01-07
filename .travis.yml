@@ -40,6 +40,6 @@ script:
   - make
 
 after_script:
-  - ctest .
+  - cd .. && ctest build/
   - coveralls --gcov-options '\-lp'
 
