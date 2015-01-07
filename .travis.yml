@@ -41,3 +41,6 @@ script:
 
 after_script:
   - ctest .
+  
+after_success:
+  - coveralls --exclude lib --exclude tests --gcov-options '\-lp'
