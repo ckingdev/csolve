@@ -4,9 +4,6 @@ cmake_minimum_required(VERSION 3.0)
 enable_testing()
 
 set(CMAKE_CXX_FLAGS "-std=c++11 -O2")
-if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-  set(CMAKE_CXX_FLAGS "-O0 -std=c++11 -fprofile-arcs -ftest-coverage")
-endif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 add_subdirectory(lib)
 
 set(SRC src/Puzzle.cpp)
