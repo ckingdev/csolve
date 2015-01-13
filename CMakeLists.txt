@@ -22,5 +22,9 @@ set(TEST_SRC test/test.cpp)
 
 add_executable(csolve-test ${TEST_SRC})
 
+set(2X2SERV_SRC src/2x2server.cpp)
+add_executable(2x2server ${2X2SERV_SRC})
+target_link_libraries(2x2server libcsolve)
+
 target_link_libraries(csolve-test libcsolve gtest)
 add_test(csolve-test csolve-test)
