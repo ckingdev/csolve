@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.0)
 
 enable_testing()
 
-set(CMAKE_CXX_FLAGS "-std=c++11 -O2")
+set(CMAKE_CXX_FLAGS "-std=c++11 -O3")
 add_subdirectory(lib)
 
 set(SRC src/Puzzle.cpp)
