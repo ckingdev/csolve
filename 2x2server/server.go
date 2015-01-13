@@ -3,29 +3,23 @@ package main
 import (
 	"github.com/go-martini/martini"
 
-	"errors"
 	"flag"
 	"fmt"
-	"io"
+	"log"
 	"net/http"
 	"os"
 	"os/exec"
 	"strconv"
 )
 
-const version = "0.0.1-alpha" // semvar versioning?
-const debug = true
-const pipeBufLength = 100
+const version = "0.0.1-alpha"
+const logPath = "log"
 
 var pruneDepth int
+var logger *log.Logger
 
 func init() {
 	flag.IntVar(&pruneDepth, "d", 7, "how deep of a pruning table to use")
-
-	// Check that the binary exists
-	if _, err := os.Stat("../build/2x2server"); os.IsNotExist(err) {
-		panic(errors.New("No binary found!"))
-	}
 }
 
 func gen2x2PruningTable(depth int) error {
@@ -34,6 +28,7 @@ func gen2x2PruningTable(depth int) error {
 
 	//Check if pruning table already exists
 	if _, err := os.Stat(savePath); !os.IsNotExist(err) {
+		logger.Println("Pruning table already generated.")
 		fmt.Println("Pruning table already generated.")
 		return nil
 	}
@@ -54,9 +49,28 @@ func gen2x2PruningTable(depth int) error {
 func main() {
 	flag.Parse()
 
-	f, err := io
+	// open log file
+	var err error
+	var f *os.File
+	// check if log file already exists
+	if _, existsErr := os.Stat(logPath); os.IsNotExist(existsErr) {
+		f, err = os.Create(logPath)
+	} else {
+		f, err = os.OpenFile(logPath, os.O_RDWR|os.O_APPEND, 0660)
+	}
+	if err != nil {
+		fmt.Println(err.Error())
+		os.Exit(1)
+	}
+	defer f.Close()
+	logger = log.New(f, "["+version+"] ", log.LstdFlags)
 
-	err := gen2x2PruningTable(pruneDepth)
+	// Check that the binary exists
+	if _, err := os.Stat("../build/2x2server"); os.IsNotExist(err) {
+		logger.Fatalln("No binary found!")
+	}
+
+	err = gen2x2PruningTable(pruneDepth)
 	if err != nil {
 		panic(err)
 	}
