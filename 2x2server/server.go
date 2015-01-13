@@ -1,89 +1,44 @@
 package main
 
 import (
-	"errors"
 	"github.com/go-martini/martini"
+
+	"errors"
+	"flag"
+	"fmt"
 	"io"
 	"net/http"
+	"os"
 	"os/exec"
+	"strconv"
 )
 
 const version = "0.0.1-alpha" // semvar versioning?
 const debug = true
 const pipeBufLength = 100
 
-func usage() (int, string) {
-	return http.StatusOK, "to do"
+var pruneDepth int
+
+func init() {
+	flag.IntVar(&pruneDepth, "d", 7, "how deep of a pruning table to use")
+
+	// Check that the binary exists
+	if _, err := os.Stat("../build/2x2server"); os.IsNotExist(err) {
+		panic(errors.New("No binary found!"))
+	}
 }
 
-func errorOnPipeRead(pipe io.Reader) error {
-	buf := make([]byte, 1)
-	nRead, err := pipe.Read(buf)
-	if nRead > 0 {
-		return errors.New("Compilation error.")
-	}
-	if err != nil && err.Error() != "EOF" { // EOF is expected
-		return err
-	}
-	return nil
-}
+func gen2x2PruningTable(depth int) error {
+	depthStr := strconv.Itoa(depth)
+	savePath := "2x2_d" + depthStr + ".prun"
 
-func getStdOutErr(cmd *exec.Cmd) (io.Reader, io.Reader, error) {
-	stdout, err := cmd.StdoutPipe()
-	if err != nil {
-		return nil, nil, err
-	}
-	stderr, err := cmd.StderrPipe()
-	if err != nil {
-		return nil, nil, err
-	}
-	return stdout, stderr, nil
-}
-
-func compile(cmd *exec.Cmd) error {
-	// Make sure we can open pipes
-	stdout, stderr, err := getStdOutErr(cmd)
-	if err != nil {
-		return err
+	//Check if pruning table already exists
+	if _, err := os.Stat(savePath); !os.IsNotExist(err) {
+		fmt.Println("Pruning table already generated.")
+		return nil
 	}
 
-	// Check that command starts ok
-	err = cmd.Start()
-	if err != nil {
-		return err
-	}
-
-	// Shouldn't have output if the compilation succeeds - error if there is
-	err = errorOnPipeRead(stdout)
-	if err != nil {
-		return err
-	}
-	err = errorOnPipeRead(stderr)
-	if err != nil {
-		return err
-	}
-
-	// Check that command ran with exit code 0
-	err = cmd.Wait()
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func compileHandler() (int, string) {
-	cmd := exec.Command("clang++", "test.cpp")
-	err := compile(cmd)
-	if err != nil {
-		return http.StatusInternalServerError, err.Error()
-	}
-	return http.StatusOK, "Success!"
-}
-
-func gen2x2PruningTable(depth string, savePath string) error {
-	cmd := exec.Command("../build/2x2server", depth, savePath)
-
+	cmd := exec.Command("../build/2x2server", depthStr, savePath)
 	err := cmd.Start()
 	if err != nil {
 		return err
@@ -97,21 +52,20 @@ func gen2x2PruningTable(depth string, savePath string) error {
 }
 
 func main() {
-	// for 'solve' function just pass concatenated list of 0-9
-	m := martini.Classic()
+	flag.Parse()
 
-	err := gen2x2PruningTable("7", "2x2_d7.prune")
+	f, err := io
+
+	err := gen2x2PruningTable(pruneDepth)
 	if err != nil {
 		panic(err)
 	}
 
-	m.Get("/", usage)
+	m := martini.Classic()
 
-	m.Get("/version", func() string {
-		return version + "\n"
+	m.Get("/", func() (int, string) {
+		return http.StatusTeapot, "Tea time!"
 	})
-
-	m.Get("/compile", compileHandler)
 
 	m.Run()
 }
