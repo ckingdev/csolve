@@ -7,12 +7,15 @@
 #include "Puzzle.hpp"
 
 template <typename puzzle>
-std::string pruning_table_name(int depth)
+std::string pruning_table_name(int depth, std::string prefix = std::string())
 {
     auto edges_str = std::to_string(puzzle::edges_num);
     auto corners_str = std::to_string(puzzle::corners_num);
     auto depth_str = std::to_string(depth);
-    return edges_str + "_" + corners_str + "_" + depth_str;
+    std::string prefix_part;
+    if (!prefix.empty())
+        prefix_part = prefix + "_";
+    return prefix_part + edges_str + "_" + corners_str + "_" + depth_str;
 }
 
 template <typename puzzle>

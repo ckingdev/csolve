@@ -46,6 +46,11 @@ TEST(PruningTableTest, PruningTableName) {
     EXPECT_EQ(name, std::string("4_4_4"));
 }
 
+TEST(PruningTableTest, PruningTableNamePrefix) {
+    auto name = pruning_table_name<Puzzle<4,4>>(4, "2x2");
+    EXPECT_EQ(name, std::string("2x2_4_4_4"));
+}
+
 // TODO: Write a test for get_depth_chart()
 
 TEST(PruningTableTest, CrossDepth5CorrectHTM) {
