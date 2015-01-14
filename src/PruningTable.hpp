@@ -3,7 +3,17 @@
 
 #include <vector>
 #include <unordered_map>
+#include <string>
 #include "Puzzle.hpp"
+
+template <typename puzzle>
+std::string pruning_table_name(int depth)
+{
+    auto edges_str = std::to_string(puzzle::edges_num);
+    auto corners_str = std::to_string(puzzle::corners_num);
+    auto depth_str = std::to_string(depth);
+    return edges_str + "_" + corners_str + "_" + depth_str;
+}
 
 template <typename puzzle>
 void DLS(typename puzzle::PruningTable &pt, const puzzle &puz, int depth,
