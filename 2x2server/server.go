@@ -72,13 +72,21 @@ func main() {
 
 	err = gen2x2PruningTable(pruneDepth)
 	if err != nil {
-		panic(err)
+		logger.Fatalf("Error generating pruning table: %v\n", err.Error())
 	}
 
 	m := martini.Classic()
 
 	m.Get("/", func() (int, string) {
-		return http.StatusTeapot, "Tea time!"
+		return http.StatusOK, "Usage:\nGET /ping tests that the server is running\nGET /kill stops the server\n"
+	})
+
+	m.Get("/ping", func() (int, string) {
+		return http.StatusOK, "pong"
+	})
+
+	m.Get("/kill", func() {
+		os.Exit(0)
 	})
 
 	m.Run()
