@@ -85,9 +85,9 @@ bool Puzzle<edges_num, corners_num>::solved() const {
     return true;
 }
 
-template <std::size_t edges_num, std::size_t corners_num>
-bool Puzzle<edges_num, corners_num>::
-operator==(const Puzzle<edges_num, corners_num> &b) const {
+template <std::size_t t_edges_num, std::size_t t_corners_num>
+bool Puzzle<t_edges_num, t_corners_num>::
+operator==(const Puzzle<t_edges_num, t_corners_num> &b) const {
     auto &a_edges = get_edges();
     auto &a_corners = get_corners();
     auto &b_edges = b.get_edges();

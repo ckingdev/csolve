@@ -58,8 +58,11 @@ template <typename puzzle> class PuzzleHasher {
 };
 
 // Represents a bag of edges and a bag of corners, each of which is a Piece.
-template <std::size_t edges_num, std::size_t corners_num> class Puzzle {
+template <std::size_t t_edges_num, std::size_t t_corners_num> class Puzzle {
   public:
+    static const std::size_t edges_num = t_edges_num;
+    static const std::size_t corners_num = t_corners_num;
+
     typedef std::unordered_map<Puzzle, int, PuzzleHasher<Puzzle> > PruningTable;
 
     // Adds an edge p to the puzzle in position i of the array.
