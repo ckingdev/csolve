@@ -21,9 +21,12 @@ int main() {
     // for (auto &i : moves) {
     //     std::cout << i << std::endl;
     // }
-    Node<int> n1 = Node<int>(3, 4);
-    Node<int> n2 = Node<int>(3, 3);
-    std::cout << (n1 <= n2) << std::endl;
-    std::cout << (n1 >= n2) << std::endl;
+    MinHeap<int> mh(7);
+    mh.insert(0, 5);
+    mh.insert(0, 4);
+    mh.insert(0, 3);
+    mh.insert(0, 2);
+    mh.insert(0, 1);
+    mh.print();
     return 0;
 }
