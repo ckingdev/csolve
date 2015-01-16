@@ -24,6 +24,7 @@ class MinHeap {
 		void insert(T datum, int priority);
 		T pop();
 		void print();
+		bool is_empty();
 		~MinHeap();
 	private:
 		Node<T> *data;
@@ -76,8 +77,9 @@ void MinHeap<T, d>::heap_up(int index) {
 
 template<class T, int d>
 void MinHeap<T, d>::insert(T datum, int priority) {
+	assert(this->size < this->max_size);
 	Node<T> new_node = Node<T>(datum, priority);
-	this->data[size] = new_node;
+	this->data[this->size] = new_node;
 	size++;
 	heap_up(size - 1);
 }
@@ -124,6 +126,14 @@ T MinHeap<T, d>::pop() {
 	this->data[0] = this->data[this->size];
 	heap_down(0);
 	return root_datum;
+}
+
+template<class T, int d>
+bool MinHeap<T, d>::is_empty() {
+	if (size > 0) {
+		return false;
+	}
+	return true;
 }
 
 template<class T>
