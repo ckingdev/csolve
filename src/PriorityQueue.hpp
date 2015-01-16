@@ -1,5 +1,6 @@
 #include <vector>
 #include <iostream>
+#include <cmath>
 
 template<class T>
 class Node {
@@ -16,11 +17,12 @@ class Node {
 		int priority;
 };
 
-template<class T>
+template<class T, int d>
 class MinHeap {
 	public:
 		MinHeap(int max_size);
 		void insert(T datum, int priority);
+		T pop();
 		void print();
 		~MinHeap();
 	private:
@@ -28,34 +30,38 @@ class MinHeap {
 		int size;
 		int max_size;
 		int parent(int index);
-		int child(int index);
-		void heapify(int index);
+		int first_child(int index);
+		void heap_up(int index);
+		void heap_down(int index);
 };
 
-template<class T>
-MinHeap<T>::MinHeap(int max_size) {
+template<class T, int d>
+MinHeap<T, d>::MinHeap(int max_size) {
 	this->size = 0;
 	this->max_size = max_size;
 	this->data = new Node<T>[max_size];
 }
 
-template<class T>
-MinHeap<T>::~MinHeap() {
+template<class T, int d>
+MinHeap<T, d>::~MinHeap() {
 	delete [] this->data;
 }
 
-template<class T>
-int MinHeap<T>::parent(int index) {
-	return (index - 1) / 2;
+template<class T, int d>
+int MinHeap<T, d>::parent(int index) {
+	double tmp = index;
+	tmp -= 1;
+	tmp /= d;
+	return int(ceil(tmp));
 }
 
-template<class T>
-int MinHeap<T>::child(int index) {
-	return 2 * index + 1;
+template<class T, int d>
+int MinHeap<T, d>::first_child(int index) {
+	return (index - 1) * d + 2;
 }
 
-template<class T>
-void MinHeap<T>::heapify(int index) {
+template<class T, int d>
+void MinHeap<T, d>::heap_up(int index) {
 	if (index == 0) {
 		return;
 	}
@@ -64,23 +70,60 @@ void MinHeap<T>::heapify(int index) {
 		auto tmp = this->data[parent_index];
 		this->data[parent_index] = this->data[index];
 		this->data[index] = tmp;
-		heapify(parent_index);
+		heap_up(parent_index);
 	}
 }
 
-template<class T>
-void MinHeap<T>::insert(T datum, int priority) {
+template<class T, int d>
+void MinHeap<T, d>::insert(T datum, int priority) {
 	Node<T> new_node = Node<T>(datum, priority);
 	this->data[size] = new_node;
 	size++;
-	heapify(size - 1);
+	heap_up(size - 1);
 }
 
-template<class T>
-void MinHeap<T>::print() {
+template<class T, int d>
+void MinHeap<T, d>::print() {
 	for (int i = 0; i < this->size; i++) {
 		std::cout << this->data[i].get_priority() << " ";
 	}
+	std::cout << std::endl;
+}
+
+template<class T, int d>
+void MinHeap<T, d>::heap_down(int index) {
+	int fc = this->first_child(index);
+	if (fc >= this->size) { // No children
+		return;
+	}
+	int min_index = fc;
+	int min_pri = this->data[fc].get_priority();
+	for (int i = 1; i < d; i++) {
+		if (fc+i >= this->size) {
+			break;
+		}
+		int iter_pri = this->data[fc+i].get_priority();
+		if (iter_pri < min_pri) {
+			min_pri = iter_pri;
+			min_index = fc + i;
+		}
+	}
+	if (this->data[index].get_priority() > min_pri) {
+		auto swap = this->data[fc];
+		this->data[fc] = this->data[min_index];
+		this->data[min_index] = swap;
+		heap_up(min_index);
+	}
+}
+
+template<class T, int d>
+T MinHeap<T, d>::pop() {
+	assert(this->size > 0);
+	T root_datum = this->data[0].get_datum();
+	this->size--;
+	this->data[0] = this->data[this->size];
+	heap_down(0);
+	return root_datum;
 }
 
 template<class T>
@@ -122,4 +165,3 @@ bool Node<T>::operator >=(Node<T> &other) {
 	}
 	return false;
 }
-
