@@ -109,10 +109,10 @@ void MinHeap<T, d>::heap_down(int index) {
 		}
 	}
 	if (this->data[index].get_priority() > min_pri) {
-		auto swap = this->data[fc];
-		this->data[fc] = this->data[min_index];
+		auto swap = this->data[index];
+		this->data[index] = this->data[min_index];
 		this->data[min_index] = swap;
-		heap_up(min_index);
+		heap_down(min_index);
 	}
 }
 
