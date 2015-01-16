@@ -52,12 +52,12 @@ int MinHeap<T, d>::parent(int index) {
 	double tmp = index;
 	tmp -= 1;
 	tmp /= d;
-	return int(ceil(tmp));
+	return int(tmp);
 }
 
 template<class T, int d>
 int MinHeap<T, d>::first_child(int index) {
-	return (index - 1) * d + 2;
+	return index * d + 1;
 }
 
 template<class T, int d>
