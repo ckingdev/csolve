@@ -3,12 +3,14 @@
 #include "cereal/archives/binary.hpp"
 #include "Interface.hpp"
 #include "PriorityQueue.hpp"
+#include "Search.hpp"
 
 #include <cstdlib>
 #include <cstdio>
 #include <string>
 #include <fstream>
 #include <iostream>
+#include <vector>
 
 int main() {
     // auto p = get_corners();
@@ -21,12 +23,23 @@ int main() {
     // for (auto &i : moves) {
     //     std::cout << i << std::endl;
     // }
-    MinHeap<int> mh(7);
-    mh.insert(0, 5);
-    mh.insert(0, 4);
-    mh.insert(0, 3);
-    mh.insert(0, 2);
-    mh.insert(0, 1);
-    mh.print();
-    return 0;
+    // 
+    // int n = 100;
+    // MinHeap<int, 50> mh(n);
+    // for (int i = 0; i < n; i++) {
+    //     mh.insert(n-i, n-i);
+    // }
+    // for (int i = 0; i < n; i++) {
+    //     std::cout<< mh.pop() << " ";
+    // }
+    // mh.print();
+    // return 0;
+    // 
+    auto p = get_corners();
+    auto base_moves = get_2x2_h3gen_turns();
+    decltype(p)::PruningTable pt = bfs_pruning_table(p, 11, base_moves);
+    p = p.apply(base_moves[0]);
+    p = p.apply(base_moves[1]);
+    std::vector<int> sol = A_star_single<Puzzle<0, 8>, 2>(p, pt, 100, base_moves);
+    std::cout << sol[0] << std::endl;
 }

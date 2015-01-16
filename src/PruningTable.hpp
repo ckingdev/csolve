@@ -4,6 +4,8 @@
 #include <vector>
 #include <unordered_map>
 #include <string>
+#include <queue>
+#include <utility>
 #include "Puzzle.hpp"
 
 template <typename puzzle>
@@ -32,6 +34,7 @@ void DLS(typename puzzle::PruningTable &pt, const puzzle &puz, int depth,
         return;
     }
 }
+
 
 // gen_pruning_table() generates a position->(moves from puz) mapping.
 //
@@ -63,6 +66,36 @@ std::unordered_map<int, int> get_depth_chart(typename puzzle::PruningTable pt) {
         }
     }
     return chart;
+}
+
+template <typename puzzle>
+typename puzzle::PruningTable
+bfs_pruning_table(const puzzle &puz, int max_depth,
+                  const std::vector<Move> &move_set) {
+    typename puzzle::PruningTable pt;
+    std::queue<std::pair<puzzle, int>> q;
+    std::pair<puzzle, int> source = {puz, 0};
+    q.push(source);
+    while (q.size() > 0) {
+        auto cur_node = q.front();
+        if (cur_node.second > max_depth) {
+            q.pop();
+            continue;
+        }
+        if (pt.find(cur_node.first) == pt.end()) {
+            pt[cur_node.first] = cur_node.second;
+            auto new_ps = cur_node.first.apply_moves(move_set);
+            for (auto &i : new_ps) {
+                if (pt.find(i) != pt.end()) {
+                    continue;
+                }
+                std::pair<puzzle, int> new_element = {i, cur_node.second + 1};
+                q.push(new_element);
+            }
+        }
+        q.pop();
+    }
+    return pt;
 }
 
 #endif

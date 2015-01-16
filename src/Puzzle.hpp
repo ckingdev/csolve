@@ -116,6 +116,7 @@ Puzzle<0, 8> get_corners();
 
 Puzzle<0, 4> get_4_corners();
 
+
 #include "PuzzleImpl.hpp"
 
 #endif

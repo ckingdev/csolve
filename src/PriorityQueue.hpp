@@ -1,3 +1,6 @@
+#ifndef PQ_HPP
+#define PQ_HPP
+
 #include <vector>
 #include <iostream>
 #include <cmath>
@@ -175,3 +178,5 @@ bool Node<T>::operator >=(Node<T> &other) {
 	}
 	return false;
 }
+
+#endif
