@@ -19,6 +19,7 @@ target_compile_options(libcsolve PRIVATE -Wall -Werror)
 set(EXEC_SRC src/main.cpp)
 
 add_executable(csolve ${EXEC_SRC})
+target_compile_options(csolve PRIVATE -Wall -Werror)
 target_link_libraries(csolve libcsolve)
 
 set(TEST_SRC src/test.cpp)
